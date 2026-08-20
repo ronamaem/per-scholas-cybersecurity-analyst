@@ -1,5 +1,5 @@
 # Cybersecurity Analyst Lab Portfolio
-Hi! 
+Welcome! 
 
 This repository documents the hands-on labs and projects I completed throughout the Per Scholas Cybersecurity Analyst Program, an intensive 15-week cybersecurity training program focused on developing practical skills in networking, security operations, threat detection, vulnerability management, and incident response.
 
