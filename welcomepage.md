@@ -24,6 +24,39 @@ Lab documentation may include:
 - Screenshots and supporting evidence
 - Key technical takeaways
 
+## Professional Focus
+
+My goal is to begin my career in **cybersecurity**, with particular interest in security operations, security analysis, threat detection, incident response, and eventually cloud security. 
+
+I'm building this portfolio to demonstrate not only my knowledge of cybersecurity concepts, but my ability to **apply them, troubleshoot problems, analyze technical data, and clearly document my findings.**
+
+## Certifications & Trainings
+
+**CompTIA Security+** 
+**Per Scholas Cybersecurity Analyst Program** — In Progress
+**CompTIA CySa+** — In Progress / Program Preparation
+**Splunk Core User** — In Progress / Program Preparation
+
+## Table of Contents
+
+| Module | Focus Area | Notes | Labs |
+| --- | --- | --- | --- |
+| 123 | Networking Basics | [Networking Basics Notes](123-networking-basics-notes.md) | [Networking Basics Labs](123-networking-defense-labs.md)
+| 125 | Network Defense | [Network Defense Notes](123-networking-basics-labs.md) | [Network Defense Labs](125-network-defense-labs.md)
+| 154 | IT Security & Endpoint Protection |
+| 180 | CompTIA CySa+ — Security Operations |
+| 181 | CompTIA CySa+ — Vulnerability Management |
+| 182 | CompTIA CySa+ — Incident Response, Reporting & Communication |
+| 183 | CompTIA CySa+ — Analyzing & Remediating Network Attacks |
+| 184 | CompTIA CySa+ — Analyzing & Remediating Application Attacks |
+| 185 | CompTIA CySa+ Review & Certification | 
+| 200 | Splunk Core User |
+| 204 | Introduction to Splunk Enterprise Security |
+| 201 | Splunk Core User Review & Certification |
+| 934 | Artificial Intelligence & Tools for Cybersecurity |
+|127 | Cyber Threat Management |
+| 191 | Cybersecurity Analyst Capstone Project |
+
 ## Technical Skills & Tools  
 
 Throughout the program, I am developing hands-on experience across several cybersecurity domains.
@@ -99,26 +132,6 @@ Exposure to common web application vulnerabilities and attack techniques, includ
 - Cybersecurity-focused AI tools
 - Using emerging technologies to support security operations and analysis
 
-## Program Modules
-
-| Module | Focus Area |
-| --- | --- |
-| 123 | Networking Basics |
-| 125 | Network Defense |
-| 154 | IT Security & Endpoint Protection |
-| 180 | CompTIA CySa+ — Security Operations |
-| 181 | CompTIA CySa+ — Vulnerability Management |
-| 182 | CompTIA CySa+ — Incident Response, Reporting & Communication |
-| 183 | CompTIA CySa+ — Analyzing & Remediating Network Attacks |
-| 184 | CompTIA CySa+ — Analyzing & Remediating Application Attacks |
-| 185 | CompTIA CySa+ Review & Certification | 
-| 200 | Splunk Core User |
-| 204 | Introduction to Splunk Enterprise Security |
-| 201 | Splunk Core User Review & Certification |
-| 934 | Artificial Intelligence & Tools for Cybersecurity |
-|127 | Cyber Threat Management |
-| 191 | Cybersecurity Analyst Capstone Project |
-
 ## Lab Documentation
 
 Each lab folder is designed to show both the **technical process** and my understanding of the concepts being practiced.
@@ -157,19 +170,6 @@ What I learned from this lab and how the concepts relate to real-world networkin
 ### Troubleshooting
 
 Problems encountered during the lab, how I investigated them, and how they were resolved.
-
-## Professional Focus
-
-My goal is to begin my career in **cybersecurity**, with particular interest in security operations, security analysis, threat detection, incident response, and eventually cloud security. 
-
-I'm building this portfolio to demonstrate not only my knowledge of cybersecurity concepts, but my ability to **apply them, troubleshoot problems, analyze technical data, and clearly document my findings.**
-
-## Certifications & Trainings
-
-**CompTIA Security+** 
-**Per Scholas Cybersecurity Analyst Program** — In Progress
-**CompTIA CySa+** — In Progress / Program Preparation
-**Splunk Core User** — In Progress / Program Preparation
 
 ## Portfolio in Progress
 
