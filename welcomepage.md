@@ -42,7 +42,7 @@ I'm building this portfolio to demonstrate not only my knowledge of cybersecurit
 | Module | Focus Area | Notes | Labs |
 | --- | --- | --- | --- |
 | 123 | Networking Basics | [Networking Basics Notes](123-networking-basics-notes.md) | [Networking Basics Labs](123-networking-defense-labs.md)
-| 125 | Network Defense | [Network Defense Notes](123-networking-basics-labs.md) | [Network Defense Labs](125-network-defense-labs.md)
+| 125 | Network Defense | [Network Defense Notes](125-network-defense-notes.md) | [Network Defense Labs](125-network-defense-labs.md)
 | 154 | IT Security & Endpoint Protection |
 | 180 | CompTIA CySa+ — Security Operations |
 | 181 | CompTIA CySa+ — Vulnerability Management |
