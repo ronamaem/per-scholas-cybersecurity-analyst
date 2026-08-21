@@ -190,7 +190,145 @@ A security solution should be simple from the inside, but complex on the outside
 ### 1.2 Cybersecurity Operations Management
 #### 1.2.2 Configuration Management
 
+Configuration management refers to identifying, controlling and auditing the implementation and any changes made to a system’s established baseline.
 
+The baseline configuration includes all the settings that you configure for a system which provide the foundation for all similar systems — like a template of sorts.
+
+For instance, those responsible for deploying Windows workstations to users must install the required applications and set up the system settings according to a documented configuration. This is the baseline configuration for Windows workstations within this organization.
+
+Documented configuration resources might inlude the following:
+
+- Network maps, cabling and wiring diagrams, application configuration specification
+- Standards naming conventions used for computers
+- IP schema to track IP addresses
+
+Hardening the operating system is an important part of making sure that systems have secure configurations. Configuring log files along with auditing, changing default account names and passwords, implementing account policies and file-level access control are all used to create a secure OS
+
+#### 1.2.3 Log Files
+
+A log records all events as they occur. Log entries make up a log file, with each log entry containing all the information related to a specific event. Accurate and complete logs are very important in cybersecurity.
+
+For example, an audit log tracks user authentication attempts, while an access log records details on requests for specific files on a system. Monitoring system logs will therefore help us determine how an attack occurred and which of the defenses deployed were successful — and which were not.
+
+As an increasing number of log files are generated for computer security purposes, organizations should consider a log management process. Management of computer security log data should determine the procedures for the following:
+
+- Generating log files
+- Transmitting log files
+- Storing log files
+- Analyzing log data
+- Disposing of log data
+
+#### 1.2.4 Operating System Logs and Application Security Logs
+
+##### Operating System Logs
+
+Operating system logs record events that are linked to actions that have to do with the operating system. System events include the following:
+
+- Client requests and server responses such as succesful user authentications
+- Usage information that contains the number and size of transactions in a given period of time
+
+##### Application Security Logs
+
+Organizations use network-based and/or system-based security software to detect malicious activity
+
+This software generates a security log to provide computer security data. These logs are useful for performing auditing analysis and identifying trends and long-term problems. Logs also enable an organization to provide documentation showing that it complies with laws and regulatory requirements
+
+#### 1.2.5 Protocol Analyzers
+
+Packet analyzers, otherwise known as packet sniffers, intercept and log network traffic.
+
+The packet analyzer captures each packet, looks at the values of various fields in the packet and analyzes its content. It can capture network traffic on both wired and wireless networks.
+
+Packet analyzers perform the following functions:
+
+- Traffic logging
+- Network problem analysis
+- Detection of network misuse
+- Detection of network intrusion attempts
+- Isolation of exploited systems
+
+### 1.3 Security Policies, Regulations, and Standards
+#### 1.3.1 Business Policies
+
+Business policies are the guidelines that are developed by an organization to govern its actions. The policies define standards of correct behavior for the business and its employees. In networking, policies define the activities that are allowed on the network. This sets a baseline of acceptable use. If behavior that violates business policy is detected on the network, it is possible that a security breach has occurred
+
+An organization. may have several guiding policies:
+
+##### Company policies 
+
+- These policies establish the rules of conduct and the responsibilities of both employees and employers. 
+- Policies protect the rights of workers as well as the business interests of employers
+- Depending on the needs of the organization, various policies and procedures establish rules regarding employee conduct, attendance, dress code, privacy and other areas related to the terms and conditions of employment
+
+##### Employee Policies
+
+- These policies are created and maintained by human resources staff to identify employee salary, pay schedule, employee benefits, work schedule, vacations, and more
+- They are often provided to new employees to review and sign
+
+##### Security Policies
+
+- These policies identify a set of security objectives for a company, define the rules of behavior for users and administrators, and specify system requirements
+- These objectives, rules, and requirements collectively ensure the security of a network and the computer systems in an organization
+- Much like a continuity plan, a security policy is a constantly evolving document based on changes in the threat landscape, vulnerabilities, and business and employee requirements
+
+#### 1.3.2 Security Policy
+
+A comprehensive security policy has a number of benefits, including the following:
+
+- Demonstrates an organization's commitment to security
+- Sets the rules for expected behavior
+- Ensures consistency in system operations, software and hardware acquisition and use, and maintenance
+- Defines the legal consequences of violations
+- Gives security staff the backing of management
+
+Security policies are used to inform users, staff, and managers of an organization's requirements for protecting technology and information assets. A security policy also specifies the mechanisms that are needed to meet security requirements and provides a baseline from which to acquire, configure, and audit computer systems and networks for compliance
+
+The table lists policies that may be included in a security policy.
+
+| Policy | Description |
+| --- | --- |
+| Identification and authentication policy | Specifies authorized persons that can have access to network resources and identity verification procedures |
+| Password policies | Ensures passwords meet minimum requirements and are changed regularly |
+| Acceptable Use Policy (AUP) | Identifies network applications and uses that are acceptable to the organization. It may also identify ramifications if this policy is violated |
+| Remote Access Policy | Specifies network device operating systems and end user application update procedures |
+Network maintenance policy | Specifies network device operating systems and end user application update procedures |
+| Incident handling procedures | Describes how security incidents are handled |
+
+One of the most common security policy components is an AUP. This can also be referred to as an appropriate use policy. This component defines what users are allowed and not allowed to do on the various system components. This includes the type of traffic that is allowed on the network. The AUP should be as explicit as possible to avoid misunderstanding
+
+#### 1.3.3 BYOD Policies
+
+Many organizations must now also support Bring Your Own Device (BYOD). This enables employees to use their own mobile devices to access company systems, software, networks, or information. BYOD provides several key benefits to enterprises, including increased productivity, reduced IT and operating costs, better mobility for employees, and greater appeal when it comes to hiring and retaining employees.
+
+However, these benefits also bring an increased information security risk because BYOD can lead to data breaches and greater liability for the organization
+
+A BYOD security policy should be developed to accomplish the following:
+
+- Specify the goals of the BYOD program
+- Identify which employees can bring their own devices
+- Identify which devices will be supported
+- Identify the level of access employees are granted when using personal devices
+- Describe the rights to access and activities permitted to security personnel on the device
+- Identify which regulations must be adhered to when using employee devices
+- Identify safeguard to put in place if a device is compromised
+
+This table lists BYOD security best practices to help mitigate BYOD vulnerabilities
+
+| Best Practice | Description |
+| --- | --- |
+| Password protected access | Use unique passwords for each device and account | 
+| Manually control wireless connectivity | Turn off Wi-Fi and Bluetooth connectivity when not in use. Connect only to trusted networks |
+| Keep updated | Always keep the device OS and other software updated. Updated software often contains security patches to mitigate against the latest threats or exploits | 
+| Back up data | Enable backup of the device in case it is lost or stolen |
+| Enable "Find my Device | Subscribe to a device locator service with remote wipe feature |
+| Provide antivirus software | Provide antivirus software for approved BYOD devices |
+| Use Mobile Device Management (MDM) software | MDM software enables IT teams to implement security settings and software configurations on all devices that connect to company networks |
+
+#### Regulatory and Standard Compliance
+
+There are also external regulations regarding network security. Network security professionals must be familiar with the laws and codes of ethics that are binding on Information Systems Security (INFOSEC) professionals.
+
+Many organizations are mandated to develop and implement security policies. Compliance regulations define what organizations are responsible for providing and the liability if they fail to comply. The compliance regulations that an organization is obligated to follow depend on the type of organization and the data that the organization handles. Specific compliance regulations will be discussed later in the course.
 
 
 
