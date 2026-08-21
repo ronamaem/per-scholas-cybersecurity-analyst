@@ -5,7 +5,7 @@
 ### 1.1 Defense-in-Depth
 #### 1.1.1 Assets, Vulnerabilities, Threats
 
-As a cybersecurity analyst, it is my job to secure the assets of the organization's network. To do this, I must:
+As a cybersecurity analyst, it is my job to secure the assets of the organization's network.
 
 - **Assets** - Anything of value to an organization that must be protected including servers, infrastructure devices, end devices, and the greatest asset, data.
 - **Vulnerabilities** - A weakness in a system or its design that could be exploited by a threat actor.
