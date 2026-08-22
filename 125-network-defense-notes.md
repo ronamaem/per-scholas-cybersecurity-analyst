@@ -330,28 +330,218 @@ There are also external regulations regarding network security. Network security
 
 Many organizations are mandated to develop and implement security policies. Compliance regulations define what organizations are responsible for providing and the liability if they fail to comply. The compliance regulations that an organization is obligated to follow depend on the type of organization and the data that the organization handles. Specific compliance regulations will be discussed later in the course.
 
+## Module 2: System and Network Defense
 
+### 2.1 Physical Security
 
+#### 2.1.2 Fencing and Physical Barriers
 
+Fencing and barriers are the outermost later of defense and the most visible.
 
+##### Physical Barriers
 
+Physical barriers may have the following components:
 
+- Perimeter fence system
+- Security gate system
+- Bollards (short posts used to stop vehicle intrusions)
+- Vehicle entry barriers
+- Guard shelters
+- Fencing
 
+##### Fencing
 
+A fence is a barrier that encloses secure areas and designates boundaries. When designing a perimeter fencing system, the following height guidelines apply:
 
+- 1 meter (3-4 ft) will only deter casual trespassers
+- 2 meters (6-7 ft) are too high to climb by casual trespassers
+- 2.5 meters (8 ft) will offer limited delay to a determined intruder
 
+High-security areas often require a 'top guard' such as barbed wire or concertina wire. Top guards act as an additional deterrent and can delay the intruder by causing severe injury. However, attackers can still use a blanket or mattress to alleviate this threat.
 
+Local regulations may restrict the type of fencing system an organization can use and it's important to remember that fences require regular maintenance. Animals may burrow under the fence or the earth may wash out, leaving the fence unstable — this would lead to easy access for an intruder. Fencing systems should be inspected regularly. 
 
+Moreover, vehicles should never be parked near a security fence, as this could assist the intruder in climbing over or causing damage to the fence
 
+#### 2.1.3 Biometrics
 
+Biometrics are the physiological or behavioral characteristics of an individual, and there are security practices based on identifying and granting access using biometrics.
 
+The first error rate is **Type I errors or false rejections**. A Type I error rejects a person that registers and is an authorized user. In access control, where the main objective is to keep cybercriminals away, false rejection is the least important error. It means that someone who should gain access is not granted access.
 
+However, in many biometric applications, particularly retail or banking, false rejections can have a very negative impact on business due to a transaction or sale being lost.
 
+False acceptance is a Type II error. **Type II errors allow entry to people who should not have entry**, meaning a cybercriminal can potentially gain access. For this reason, Type II errors are normally considered **the most important error** for a biometric access control system.
 
+The acceptance rate is also an important concept here. Stated as a percentage, it is the rate at which a system accepts unenrolled individuals or imposters as authentic users – so the rate of Type II errors per total instances of granting permission.
 
+#### 2.1.4 Badges and Access Logs
 
+An access badge allows an individual to gain access to an area with automated entry points. 
 
+#### 2.1.5 Surveillance
 
+Many physical access controls, including deterrent and detection systems, ultimately rely on people to intervene and stop the actual attack or intrusion
+
+##### Video and Electronic Surveillance
+
+Video and electronic surveillance can supplement or, in some cases, replace security guards. The benefits of video and electronic surveillance include the ability to monitor areas when no other persons are present, the ability to record and log surveillance videos and data for long periods, plus being able to link to motion detection technology and notifications where appropriate.
+
+In a highly secure environment, video and electronic surveillance should be placed at all entrances, exits, loading bays, stairwells and refuse collection areas.
+
+##### Guards and Escorts
+
+Security guards are a great solution for access control requiring an instantaneous and appropriate response. However, there are numerous disadvantages to using security guards, including cost and the inability to monitor and record high volumes of traffic. The use of guards also introduces the risk of human error.
+
+In highly secure information system facilities, guards control access to the organization’s sensitive areas. The benefit of using guards here is that they can adapt more than automated systems. Guards can learn and distinguish many different conditions and situations, and make decisions on the spot.
+
+##### RFID and Wireless Surveillance
+
+Managing and locating important information system assets is a key challenge for most organizations. Growth in the number of mobile and IoT devices has made this job even more difficult. Time spent searching for critical equipment can lead to expensive delays or downtime. The use of Radio Frequency Identification (RFID) asset tags can be of great value to the security staff. An organization can place RFID readers in the door frames of secure areas so that they are not visible to individuals.
+
+The benefit of RFID asset tags is that they can track any asset that physically leaves a secure area. New RFID asset tag systems can read multiple tags simultaneously. RFID systems do not require line-of-sight to scan tags, either. Another advantage of RFID is the ability to read tags that are not visible. Unlike barcodes and human-readable tags that must be physically located and openly displayed to read, RFID tags do not need to be visible to scan.
+
+### 2.2 Application Security
+
+#### 2.2.2 Application Development
+
+To maintain security at all stages of application development, a robust process needs to be followed
+
+##### Developing and testing
+
+Software is developed and updated in a development environment, where it can be developed, tested and debugged before being deployed. A development environment is less restrictive than the live environment and has a lower security level. Version control software helps track and manage changes to the software code. Developers may also work in a sandbox environment so that code is not overwritten as they develop it. 
+
+During testing, developers look at how the code interacts with the normal environment. Quality assurance (QA) can find defects in the software. It is much easier to fix any defect found at this phase.
+
+##### Staging and production
+
+Staging environments should closely match the organization’s production environment.
+
+By testing in a staging environment, developers can verify that the software runs under the required security settings. After the developer runs and tests security, the program can be deployed to production.
+
+##### Provisioning and deprovisioning
+
+Provisioning is the creation or updating of software. Deprovisioning is its removal.
+
+An organization can use a self-service portal to automate software provisioning and deprovisioning.
+
+#### 2.2.3 Security Coding Techniques 
+
+When coding applications, developers use several techniques to validate that all security requirements have been met.
+
+##### Normalization
+
+Normalization is used to organize data in a database and help maintain data integrity. Normalization converts an input string to its simplest known form to ensure that all string have unique binary representations and that any malicious input is identifies
+
+##### Stored Procedure
+
+A stored procedure is a group of precompiled SQL statements stored in a database that execute a task. If you use a stored procedure to accept input parameters from clients using different input data, you will reduce network traffic and get faster results.
+
+##### Obfuscation and Camouflage
+
+A developer can use obfuscation and camouflage to prevent software from being reverse engineered. Obfuscation hides original data with random characters or data. Camouflage replaces sensitive data with realistic fictional data.
+
+##### Code resuse
+
+Code reuse means using existing software to build new software, saving time and development costs. Care must be taken, though, to avoid the introduction of vulnerabilities.
+
+##### SDKs
+
+Third-party libraries and software development kits (SDKs) provide a repository of useful code to make application development faster and cheaper. The downside is that any vulnerabilities in SDKs or third-party libraries can potentially affect many applications.
+
+#### 2.2.5 Input Validation
+
+Controlling the data input process is key to maintaining database integrity. Many attacks run against a database and insert malformed data. Such attacks can confuse, crash or make the application divulge too much information to the attacker. Scroll down to look at an example — in this case, an automated input attack.
+
+Customers fill out a web application form to subscribe to a newsletter. A database application automatically generates and sends email confirmations back to the customers. When customers receive the email with a URL link to confirm their subscription, attackers have modified the URL link. 
+
+These modifications can change the username, email address or subscription status of the customers when they click to confirm their subscription. This way, when the email is returned to the host server, it receives bogus information, which it might not be aware of if it does not check each email address against subscription information.
+
+Hackers can automate this attack to flood the web application with thousands of invalid subscribers to the newsletter database.
+
+#### 2.2.6 Validation Rules
+
+A validation rule checks that data falls within the parameters defined by the database designer. A validation rule helps to ensure the completeness, accuracy and consistency of data. The criteria used in a validation rule include the following:
+
+- Size – checks the number of characters in a data item
+- Format – checks that the data conforms to a specified format
+- Consistency – checks for the consistency of codes in related data items
+- Range – checks that data lies within a minimum and maximum value
+- Check digit – provides for an extra calculation to generate a check digit for error detection
+
+#### 2.2.7 Integrity Checks
+
+Compromised data can threaten the security of your devices and systems.
+
+**An integrity check** can measure the consistency of data in a file, picture or record to ensure that it has not been corrupted. 
+The integrity check performs a **hash function** to take a snapshot of data and then uses this snapshot to ensure data has remained unchanged. 
+**A checksum** is an example of a hash function.
+
+##### How a checksum works
+
+A checksum verifies the integrity of files, or strings of characters, before and after they transfer between devices across a local network or the Internet. Checksums convert each piece of information to a value and sum the total. To test the data integrity, a receiving system repeats the process. If the two sums are equal, the data is valid. If not, a change has occurred somewhere along the line.
+
+##### Hash functions
+
+Common hash functions include MD5, SHA-1, SHA-256 and SHA-512. These use complex mathematical algorithms to compare data to a hashed value. For example, after downloading a file, the user can verify the integrity of the file by comparing the hash values from the source with the ones generated by any hash calculator.
+
+##### Version control
+
+Organizations use version control to prevent authorized users from making accidental changes. Version control means that two users cannot update the same object, such as a file, database record or transaction, at the exact same time. For example, the first user to open a document has the permission to change that document; the second person who tries to open it while the first user is still working on it will only be able to access a read-only version.
+
+##### Backups
+
+Accurate backups help to maintain data integrity if data becomes corrupted. An organization needs to verify its backup process to ensure the integrity of the backup.
+
+##### Authorization
+
+Authorization determines who has access to an organization’s resources based on a need-to-know basis. For example, file permissions and user access controls ensure that only certain users can modify data. An administrator can set permissions for a file to read-only. As a result, a user accessing that file cannot make any changes.
+
+#### 2.2.8 Other Application Security Practices
+
+##### Code Signing
+
+Code signing helps prove that a piece of software is authentic
+
+Executables designed to install and run on a device are digitally signed to validate the author's identity and provide assurance that the software code has not changed since it was signed
+
+##### Secure cookies
+
+Using secure cookies protects information stored in cookies from hackers
+
+When your client system interacts with a server, the server sends an HTTP response that instructs your browser to create at least one cookie. The cookie then stores data for future requests while you are browsing that website
+
+#### 2.2.10 Managing Threats to Applications
+
+Organizations can implement various measures to manage threats to the application domain
+
+##### Unauthorized access to data centers, computer rooms, and wiring closets
+
+- Implement policies, standards and procedures for staff and visitors to ensure the facilities are secure.
+
+##### Server and system downtime
+
+- Develop a business continuity plan for critical applications to maintain availability of operations.
+- Develop a disaster recovery plan for critical applications and data.
+
+##### Network operating system software vulnerability
+
+- Develop a policy to address application software and operating system updates.
+- Install patches and updates regularly.
+
+##### Unauthorized access to systems
+
+- Use MFA
+- Monitor log files
+
+##### Data loss
+
+- Implement data classification standards.
+- Implement backup procedures.
+
+##### Software development vulnerabilities
+
+- Conduct software testing prior to launch.
 
 
 
