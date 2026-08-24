@@ -1008,30 +1008,285 @@ This animation shows the STP stages when a failure occurs.
 
 The default gateway is typically the router that provides devices access to the rest of the network and/or to the internet. If there is only one router serving as the default gateway, it is a single point of failure. To avoid this, an organization can choose to install an additional standby router.
 
+A redundancy protocol determines which router should take the active role in forwarding traffic; the forwarding router or the standby router? Each is configured with a physical IP address and a virtual router IP address. End devices use the virtual IP address as the default gateway
 
+The forwarding router and the standby router use their physical IP addresses to send periodic messages. The purpose of these messages is to make sure both are still online and available.
 
+If the standby router stops receiving these periodic messages from the forwarding router, it realizes it is the only router available and assumes the forwarding role for itself. Meanwhile, because the PCs on the network still communicate with the virtual router at 192.0.2.100, they stay online despite everything that has happened, since the virtual router now forwards to what was previously the standby router.
 
+The ability of a network to dynamically recover from the failure of a device acting as a default gateway is known as **first-hop redundancy**, as we’ve seen in this scenario.
 
+#### 2.6.10 Location Redundancy
 
+An organization may also want to consider location redundancy, depending on its needs.
 
+##### Synchronous Replication
 
+- Synchronizes both locations in real time
+- Requires high bandwidth
+- Locations must be close together to reduce latency
 
+##### Asynchronous Replication
 
+- Not synchronized in real time but close to it
+- Requires less bandwidth
+- Sites can be further apart because latency is less of an issue
 
+##### Point-in-Time Replication
 
+- Updates the backup data location periodically, at certain points in time
+- More bandwidth conservative because it does not require a constant connection
 
+The correct balance between cost and availability will determine the correct choice for an organization.
 
+#### 2.6.11 Resilient Design
 
+Resiliency is the name given to the methods and configurations used to make a system or network tolerant of failure
 
+- An example of resiliency is a network having redundant links between switches running STP. Although STP does provide an alternate path through the network if a link fails, the switchover may not be immediate if the configuration is not optimal, so these redundant links together with STP provide more resiliency.
 
+- Routing protocols also provide resiliency, but fine-tuning can improve the switchover so that network users do not notice. Administrators should investigate non-default settings in a test network to see if they can improve network recovery times, thus leading to minimal disruption.
 
+As seen in the above examples, resilient design is about more than just adding redundancy. It is critical to understand the business needs of the organization and then incorporate redundancy to create a resilient network.
 
+#### 2.6.12 System and Data Backups
 
+An organization can lose data if cybercriminals steal it, if equipment fails, or if a disaster or other error occurs, so it’s important to back up data regularly.
 
+A data backup stores a copy of the information from a computer to backup media. When such media is removable, the operator then stores this backup media in a safe place.
 
+Backing up data is one of the most effective ways of protecting against data loss. If the hardware fails, the user can restore the data from the backup once the system is functional again, or even when moving to a new system.
 
+A sound security policy should include regular data backups. Backups are usually stored off-site to protect the data if anything happens to the main facility.
 
+##### Frequency
 
+Backups can take a long time. Sometimes, it is easier to make a full backup monthly or weekly and then do frequent partial backups of any data that has changed since the last full backup. However, having many partial backups increases the amount of time needed to restore data
 
+##### Storage
 
+For extra security, transport backups to an approved off-site storage location on a daily, weekly or monthly rotation, as required by the security policy
 
+##### Security
+
+Protect backups with passwords. The operator will enter the password before restoring the data from the backup media
+
+##### Validation
+
+Always validate backups to ensure the integrity of the data
+
+#### 2.6.13 Designing High Availability Systems
+
+High availability incorporates three major principles to achieve the goal of uninterupted access to data and services
+
+##### Elimination or Reduction of Single Points of Failure
+
+It is important to understand the ways to address a single point of failure. A single point of failure can be a central router or switch, a network service and even a highly skilled IT staff member.
+
+What makes these single points of failure is the fact that a loss or failure of this system, process or person would have a very disruptive impact on the entire system, which should be avoided. Key, then, is to have processes, resources and components that minimize single points of failure.
+
+High availability clusters are one way to provide redundancy. These clusters consist of a group of computers with identical configurations and access to the same shared storage. All servers take part in processing a service simultaneously. From the outside, the server group looks like one device, but the added benefit is that if a server within the cluster fails, the other servers continue to process the same service as the failed device.
+
+##### Fault Tolerance
+
+Fault tolerance enables a system to continue to operate if one or more of its components fail. Data mirroring is one example of fault tolerance. Should a fault occur, causing disruption in a device such as a disk controller, the mirrored system provides the requested data with no interruption in service apparent to the user.
+
+##### System Resiliency 
+
+System resiliency refers to the capability to maintain availability of data and operational processing despite attacks or disrupting events. Generally, this requires redundant systems, in terms of both power and processing, so that should one system fail, the other can take over operations without any break in service. System resiliency is more than hardened devices; it requires that both data and services be available, even when under attack.
+
+#### 2.6.14 Power
+
+A critical issue in protecting information systems is electrical power systems and power considerations. A continuous supply of electrical power is essential for today’s massive server and data storage facilities.
+
+Here are some general rules in building effective electrical supply systems:
+
+- Data centers should be on a different power supply from the rest of the building.
+- Use redundant power sources — two or more feeds coming from two or more electrical substations.
+- Implement power conditioning.
+- Backup power systems are often required.
+- Uninterruptible power supply (UPS) should be available to gracefully shut down systems.
+
+##### Power Excess
+
+- Spike - momentary high voltage
+- Surge - prolonged high voltage
+
+##### Power Loss 
+
+- Fault - momentary loss of power
+- Blackout - complete loss of power
+
+##### Power Degradation
+
+- Sag/dip - momentary low voltage
+- Brownout - prolonged low voltage
+- Inrush current - Initial surge of power
+
+#### 2.6.15 Heating, Ventilation, and Air Conditioning (HAVC)
+
+HVAC systems are critical to the safety of people and information systems in an organization's facilities. When designing modern IT facilities, these systems play a very important role in the overall stability and security.
+
+##### HVAC System
+
+HVAC systems control the ambient environment, including the temperature, humidity and airflow. This must be managed along with data components such as hardware, cabling, data storage, fire protection, physical security systems and power, and their needs
+
+##### A product specifications document
+
+Almost all physical computer hardware comes with environmental requirements that include acceptable temperature and humidity ranges. Environmental requirements are detailed in product specification documentation and/or physical planning guides. It is critical to observe these environmental requirements to prevent system failure and extend the life of IT systems
+
+##### HVAC system contractor
+
+Commercial HVAC systems and other building management systems now connect to the internet for remote monitoring and control. But recent events have shown such 'smart' systems also raise big security issues, as they are accessed and managed by HVAC system contractors or third-party vendors
+
+##### Risks to the organization's security
+
+Because the HVAC technicians need to be able to find information quickly, crucial data tends to be stored in many different places, making it accessible to even more people. This allows a wide network of individuals, including even associates of contractors, to gain access to the HVAC system. But the more people have access, the less secure these systems are, while their interruption can pose considerable risk to the organization's security
+
+#### 2.6.17 Managing Threats to Physical Facilities
+
+Organizations can implement various measures to manage threats to the physical facilities. For example:
+
+- Access Control and Closed-Circuit TV (CCTV - Video Surveillance) coverage at all entrances
+- Policies and procedures for guests visiting the facility
+- Building security testing, including using both digital and physical means to covertly gain access
+- Badge encryption for entry access
+- Disaster recovery planning
+- Business continuity planning
+- Regular security awareness training
+- Asset tagging system
+
+### 2.7 Embedded and Specialized Systems
+
+#### 2.7.2 Threats to Key Industry Sectors
+
+Over the last decade, cyber attacks like Stuxnet proved that malware attacks could successfully destroy or interrupt critical infrastructures. The Stuxnet worm targeted Supervisory Control And Data Acquisition (SCADA) systems used to control and monitor industrial processes. SCADA and other Industrial Control Systems (ICSs) are used in manufacturing, production, energy and communications systems.
+
+Actions that can be taken to prevent such attacks from occurring.
+
+##### Stuxnet
+
+A cyber attack like this could bring down or interrupt vital facilities like telecommunications, transportation systems or electrical power plants. It could also interrupt the financial services sector
+
+Environments that use SCADA are vulnerable. When the SCADA architecture was first being developed, designers did not connect it to the traditional IT environment and the Internet. Therefore, they did not properly consider cybersecurity during the development phase of these systems
+
+Now, however, organizations using SCADA systems recognize the value of data collection to improve operations and decrease costs. The resulting trend is to connect SCADA systems to the wider online IT infrastructure of the organization. This increases the vulnerability of industries using SCADA systems. 
+
+To prevent attacks on these systems, you should segregate internal and external networks to separate the SCADA network from the organization's LAN.
+
+#### 2.7.3 The Emergence of the Internet of Things
+
+The Internet of Things (IoT) is the collection of technologies that enable various devices to connect to the Internet. The technological evolution associated with IoT is changing commercial and consumer environments.
+
+IoT technologies enable people to connect billions of devices, such as cars, industrial machines, robots, appliances, locks, motors and entertainment devices, to name just a few. This technology affects the amount of data that needs to be protected. As users need to access these devices remotely, they are placed online, which increases the number of potential entry points to that local network in general.
+
+Moreover, with the emergence of IoT, there is much more data to be managed and secured. All these devices, plus the expanded storage capacity and storage services offered through the cloud and virtualization, have led to the exponential growth of data. This data expansion created a new area of interest in technology and business called ‘Big Data.’
+
+IoT devices greatly expand the cyber attack surface. In the IoT, thousands of new devices require access to networks in order to submit data and be managed and operated. Internet-connected smart devices have been infected with malware and used to launch some of the largest DDoS attacks in history. Therefore, IoT device security is extremely important. First, all IoT devices should be evaluated to ensure that they are able to update their firmware with security patches, preferably over wireless networks. In addition, default administrator credentials on these devices should always be changed from the default settings because these settings are publicly known.
+
+#### 2.7.4 Embedded Systems
+
+Embedded systems capture, store and access data. They pose unique security challenges due to their widespread adoption by both the corporate and the consumer world. They are used in smart TVs, HVAC control systems, medical devices and even automobiles.
+
+##### Why are embedded systems vulnerable to attack?
+
+Attacks against embedded systems exploit security vulnerabilities in the software and hardware components. They are susceptible to timing attacks, whereby attackers discover vulnerabilities by studying how long it takes the system to respond to different inputs. A timing attack is considered a side-channel attack.
+
+This type of attack is based on information gained from the implementation of a system, rather than on weaknesses in the software. Timing information, power consumption, electromagnetic leaks or even sound can be that source of information.
+
+##### How can embedded systems be protected?
+
+One technique is to use **System on Chip (SoC)** technology. SoC technology is a Small Form Factor (SFF) hardware module — customer-grade examples include devices such as Raspberry Pi and Arduino. These devices are single-board computers that can be implemented using a Field-Programmable Gate Array (FGPA), an integrated circuit that can be programmed or modified in the field. This means that the user can make changes after deploying the device.
+
+These devices have good processing power delivered in a small footprint. This reduces power consumption, lowers cost and offers better performance than traditional, larger components. SoC integrates a microcontroller, an application or microprocessor, and peripherals such as a GPU, a Wi-Fi module or a coprocessor. The processor can run an operating system such as Windows, Linux or Android.
+
+Many of these SoC devices have poor authentication and/or they cannot be upgraded or patched. Due to the nature of these devices, a level of implied trust is necessary since there is no formal program in place to verify security controls.
+
+#### 2.7.5 The Internet of Things (IoT)
+
+The deployment and use of intelligent devices and sensors is one of the fastest growing sectors of information technology. The computer industry brands this sector as the Internet of Things (IoT).
+
+Businesses and consumers use IoT devices to automate processes, monitor environmental conditions and alert the user of adverse conditions. Most IoT devices connect to a network via wireless technology. These include cameras, door locks, proximity sensors, lights, and other sensors used to collect information about an environment or the status of a device. Some manufacturers use IoT sensors to inform users that parts need to be replaced, components are failing or supplies are running out.
+
+Organizations use IoT devices to track inventory, vehicles and personnel. IoT devices contain geospatial sensors. A user can globally locate, monitor and control environmental variables such as temperature, humidity, and lighting. IoT applications use a Real-Time Operating System (RTOS), a small operating system that allows for the rapid switching of tasks that focus on timing rather than throughput. Thes applications run with precise timing and high reliability. RTOS technology is found in wearables, medical devices, in-vehicle systems and home automation devices. 
+
+The IoT industry poses a tremendous challenge to information security professionals because many IoT devices capture and transmit sensitive information. Vulnerabilities associated with RTOS include code injection, DoS attacks, and priority inversion (where a higher priority task is pre-empted by a lower priority task)
+
+#### 2.7.6 Avatar
+
+Using an IoT scanner such as Shodan is an easy way to tell whether a home automation device is vulnerable to attack. IoT devices communicate using short-range, medium-range or long-range methods and include cellular (4G, 5G), radio and Zigbee. Zigbee is a wireless set of protocols for Wireless Personal Area Networks (WPANs).
+
+To secure IoT devices:
+
+- Secure the wireless network.
+- Know exactly which devices are communicating on your network.
+- Know what each of the IoT devices on your network does.
+- Install security software on devices where possible.
+- Secure smartphones and mobile apps used to communicate with IoT devices.
+
+#### 2.7.8 VoIP Equipment
+
+VoIP uses the internet to make and receive phone calls
+
+##### What equipment do you need?
+
+You need an internet connection and a phone for VoIP. Several options are available for the phone set:
+
+- A traditional phone with an adapter (the adapter acts as a hardware interface between a traditional, analog phone and a digital VoIP line)
+- A VoIP-enabled phone
+- VoIP software installed on a computer
+
+##### Is VoIP secure?
+
+Most consumer VoIP services use the internet for phone calls. Many organizations, though, use their private networks because they provide stronger security and service quality. VoIP security is only as reliable as the underlying network security. Cybercriminals target these systems to gain access to free phone services, to eavesdrop on phone calls, or to affect performance and availability.
+
+##### How can you protect your VoIP service?
+
+Implement the following countermeasures to secure VoIP:
+
+- Encrypt voice message packets to protect against eavesdropping.
+- Use SSH to protect gateways and switches.
+- Change all default passwords.
+- Use an intrusion detection system to detect attacks such as ARP poisoning.
+- Use strong authentication to mitigate registration spoofing (cybercriminals routing all incoming calls for the victim to themselves), proxy impersonating (tricking the victim into communicating via a rogue proxy set up by the cybercriminals), and call hijacking (intercepting and rerouting calls to a different path before reaching their destination).
+- Implement firewalls that recognize VoIP to monitor streams and filter abnormal signals.
+
+When using VoIP equipment, remember that when the network goes down, voice communications will also go down.
+
+#### 2.7.10 Special-Purpose Embedded Systems
+
+Embedded systems work in a variety of industries. You can find special-purpose embedded devices in sectors such as the medical, automotive and aviation sectors.
+
+##### Medical devices
+
+Devices such as pacemakers, insulin pumps, medical implants and defibrillators are capable of wireless connectivity, remote monitoring and Near-Field Communication (NFC). Vulnerabilities in these medical devices can lead to patient safety issues, medical record leaks or the risk of granting access to the network to cybercriminals, who will move through it in search of a target.
+
+##### Automotive
+
+In-vehicle systems produce and store the data necessary for the operation of the vehicle along with its maintenance, safety protection and emergency contact transmission. Typically, a wireless interface connects to the Internet and to a diagnostic interface on board. Many vehicles record speed, location and braking maneuvers, and can then send the collected data to the driver’s insurance company.
+
+Therefore, risks to in-vehicle communications include unauthorized tracking, wireless jamming and spoofing. To secure in-vehicle systems, implement the following countermeasures:
+
+- Secure system software design practices
+- Basic encryption for all communication between controllers
+- Firewall implementation
+
+##### Aviation
+
+An aircraft has many embedded control systems such as its flight control system and communication system. Security issues include the use of hard-coded logon credentials, insecure protocols and backdoors.
+
+In the same category, Unmanned Aerial Vehicles (UAVs), more commonly called drones, have been used in military, agricultural and cartography applications, among others. Drones are very useful for aerial photography, surveillance and surveying. However, drones are susceptible to hijacking, Wi-Fi attacks, GPS spoofing attacks, jamming and deauthentication attacks, which can allow an attacker to intercept or disable a drone and access its data.
+
+#### 2.7.11 Deception Technologies
+
+Organizations use deception technologies to distract attackers from production networks. They also use them to learn an attacker’s methods and to warn of potential attacks that could be launched against the network. Deception adds a fake layer to the organization’s infrastructure.
+
+##### Honeypots
+
+A **honeypot** is a decoy system that is configured to mimic a server in the organization's network. It is purposefully left exposed, to lure attackers. When an attacker goes after the honeypot, their activities are logged and monitored for later review. The honeypot distracts the attacker from the organization's real network resources.
+
+An organization might even create a **honeynet**, a collection of honeypots, to mimic its network and distract attackers. Meanwhile, **honeyfiles** are dummy files that attract an attacker but do not contain any real information. 
+
+##### DNS Sinkholes
+
+A **DNS Sinkhole** prevents the resolution of hostnames for specified URLs and can push users away from malicious resources
