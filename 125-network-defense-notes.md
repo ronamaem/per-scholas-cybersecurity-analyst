@@ -1468,9 +1468,245 @@ A group membership policy defines authorization based on users’ membership in 
 
 An authority-level policy defines access permissions based on an employee’s position within the organization.
 
+#### 3.1.15 Implementing Accountability
 
+##### What is accountability?
 
+Accountability traces an action back to a person or process making this change to a system. Accountability then collects this information and reports the usage data. The organization can use this data for such purposes as auditing or billing. The collected data might include the log-in time for a user, whether the user login was a success or failure, or what network resources the user accessed. This allows an organization to trace actions, errors and mistakes during an audit or investigation.
 
+##### Implementing accountability
+
+Implementing accountability consists of technologies, policies, procedures and education. Log files provide detailed information based on the parameters chosen. For example, an organization may look at the log for login failures and successes. Login failures can indicate that a criminal tried to hack an account, and login successes tell an organization which users are using what resources and when.
+
+The organization’s policies and procedures spell out what actions should be recorded and how the log files are generated, reviewed and stored.
+
+##### Providing accountability
+
+Data retention, media disposal and compliance requirements all provide accountability. Many laws require the implementation of measures to secure different data types. These laws guide an organization on the right way to handle, store and dispose of data. The education and awareness of an organization’s policies, procedures and related laws can also contribute to accountability.
+
+### 3.2 Access Control Concepts
+
+#### 3.2.1 Zero Trust Security
+
+Zero trust is a comprehensive approach to securing all access across networks, applications, and environments. This approach helps secure access from users, end-user devices, APIs, IoT, microservices, containers, and more. It protects an organization’s workforce, workloads, and the workplace. The principle of a zero trust approach is, “never trust, always verify.” Assume zero trust any time someone or something requests access to assets. A zero trust security framework helps to prevent unauthorized access, contain breaches, and reduce the risk of an attacker's lateral movement through a network.
+
+Traditionally, the network perimeter, or edge, was the boundary between inside and outside, or trusted and untrusted. In a Zero trust approach, any place at which an access control decision is required should be considered a perimeter. This means that although a user or other entity may have successfully passed access control previously, they are not trusted to access another area or resource until they are authenticated. In some cases, users may be required to authenticate multiple times and in different ways, to gain access to different layers of the network.
+
+The three pillars of zero trust are workforce, workloads, and workplace.
+
+##### Zero Trust for the Workforce
+
+This pillar consists of people (e.g., employees, contractors, partners, and vendors) who access work applications by using their personal or corporate-managed devices. This pillar ensures only the right users and secure devices can access applications, regardless of location.
+
+##### Zero Trust for Workloads
+
+This pillar is concerned with applications that are running in the cloud, in data centers, and other virtualized environments that interact with one another. It focuses on secure access when an API, a microservice, or a container is accessing a database within an application.
+
+##### Zero Trust for the Workplace
+
+This pillar focuses on secure access for any and all devices, including on the internet of things (IoT), that connect to enterprise networks, such as user endpoints, physical and virtual servers, printers, cameras, HVAC systems, kiosks, infusion pumps, industrial control systems, and more.
+
+#### 3.2.2 Access Control Models
+
+An organization must implement proper access controls to protect its network resources, information system resources, and information.
+
+A security analyst should understand the different basic access control models to have a better understanding of how attackers can break the access controls.
+
+The various types of access control methods.
+
+##### Discretionary Access Control (DAC)
+
+- This is the least restrictive model and allows users to control access to their data as owners of that data.
+- DAC may use ACLs or other methods to specify which users or groups of users have access to the information.
+
+##### Mandatory Access Control (MAC)
+
+- This applies the strictest access control and is typically used in military or mission critical applications.
+- It assigns security level labels to information and enables users with access based on their security level clearance.
+
+##### Role-based Access Control (RBAC)
+
+- Access decisions are based on an individual’s roles and responsibilities within the organization.
+- Different roles are assigned security privileges, and individuals are assigned to the RBAC profile for the role.
+- Roles may include different positions, job classifications or groups of job classifications.
+- Also known as a type of **non-discretionary access control**.
+
+##### Attribute-based Access Control (ABAC)
+
+ABAC allows access based on attributes of the object (resource) to be accessed, the subject (user) accessing the resource, and environmental factors regarding how the object is to be accessed, such as time of day.
+
+##### Rule-based Access Control (RBAC)
+
+- Network security staff specify sets of rules regarding or conditions that are associated with access to data or systems.
+- These rules may specify permitted or denied IP addresses, or certain protocols and other conditions.
+- Also known as **Rule Based RBAC.**
+
+##### Time-based Access Control (TAC)
+
+TAC Allows access to network resources based on time and day.
+
+Another access control model is the principle of least privilege, which specifies a limited, as-needed approach to granting user and process access rights to specific information and tools. The principle of least privilege states that users should be granted the minimum amount of access required to perform their work function.
+
+A common exploit is known as privilege escalation. In this exploit, vulnerabilities in servers or access control systems are exploited to grant an unauthorized user, or software process, higher levels of privilege than they should have. After the privilege is granted, the threat actor can access sensitive information or take control of a system.
+
+#### 3.2.3 Network Access Control (NAC) Systems
+
+Network access control (NAC) systems support access management by enforcing organizational policies regarding the people and devices that are attempting to access the network. NAC systems allow cybersecurity professionals to monitor the users and devices that are attached to the network, and manually control access as required.
+
+Network access control systems provide the following capabilities:
+
+- Rapidly enforcing access policies that have been created for different operational conditions.
+- Recognizing and profiling connected users and devices to prevent malicious software on non-compliant systems from causing damage.
+- Providing secure access to network guests, often through registration portals.
+- Evaluating device compliance with security policies by user type, device type, and operating system prior to permitting network access.
+- Mitigating security incidents by blocking, isolating, or repairing non-compliant devices.
+
+Because BYOD and IoT networking greatly expand the network attack surface, NAC system automation features make focused control of network access by such devices practical. The NAC system is configured to enforce organizational policies. The relevant policies are enacted to permit or deny network access according to a wide range of factors that the NAC system detects on the devices that are attempting access. Without NAC systems it would be impossible for cybersecurity personnel to evaluate the thousands of devices that could attempt to access the network.
+
+NAC is an important component of a zero-trust security architecture that enforces security policy compliance with all devices and users that attempt to access the network.
+
+### 3.3 Account Management
+
+#### 3.3.2 Account Types
+
+An organization should not share accounts for privileged users, administrators or applications. The administrator account should only be used to administer a system. If a user accesses a malware-infected website or opens a malicious email while using the administrator account, this would put the organization at risk.
+
+Administrators must be aware of the default group and user accounts that might be installed by an operating system. Knowing about these accounts will help an administrator decide which should be permitted and which of these accounts should be disabled.
+
+This is because default accounts such as the guest or administrator account can be a security risk in older systems as attackers are familiar with the default settings used. To improve security, always replace any default accounts and make sure that all account types require a password.
+
+It's important to properly manage accounts to maintain security
+
+- On hiring a new employee, create the identity profile, register the employee's computer and mobile devices, and enable access to the organization's network. As the Identity Provider (IdP), the organization is responsible for authenticating their identity
+- Disable or deactivate any accounts that are no longer needed and retrieve and organizational data or applications from the user's devices
+- Grant a user no more access than is necessary to perform assigned tasks (least privilege)
+- Review user access to identify any access control adjustments that need to be made
+- Use time-of-day restrictions to control when a user can log in
+- Use location restrictions to control where a device or user can log in from
+  - Geofencing is used to trigger an action when a user enters or exits a geographic boundary
+  - Geolocation identifies a device based on its geographic location
+  - Geotagging adds an identifier to something based on the location (like a photo taken on a smartphone tagged with the coordinates of where the photo was taken)
+
+#### 3.3.3 Privileged Accounts
+
+Cybercriminals target privileged accounts. Why? Because these are the most powerful accounts in the organization with elevated, unrestricted access to systems. Administrators use these accounts to deploy and manage operating systems, applications and network devices.
+
+Organizations should adopt robust practices for securing privileged accounts.
+
+- Identify and reduce the number of privileged accounts.
+- Enforce the principle of least privilege. The principle means that users, systems, and processes only have access to resources (networks, systems and files) that are absolutely necessary to perform their assigned function.
+- Revoke access rights when employees leave or change jobs.
+- Eliminate shared accounts with passwords that do not expire.
+- Secure password storage.
+- Eliminate shared credentials for multiple administrators.
+- Automatically change privileged account passwords every 30 or 60 days.
+- Record privileged sessions.
+- Implement a process to change embedded passwords for scripts and service accounts.
+- Log all user activity.
+- Generate alerts for unusual behavior.
+- Disable inactive privileged accounts.
+- Use multi-factor authentication for all administrative access.
+- Implement a gateway between the end user and sensitive assets to limit network exposure to malware.
+
+Continuously securing and locking down privileged accounts is critical to the security of the organization. Regularly evaluate this process and make adjustments to improve protection.
+
+#### 3.3.4 File Access Control
+
+Let’s take a closer look at how permissions can help secure data.
+
+Permissions are rules configured to limit folder or file access for an individual or a group. Users should be limited to only the resources they need on a computer system or network. For example, they should not be able to access all files on a server if they only need access to a single folder. It may be easier to provide access to the entire drive, but it is more secure to limit access to only the folder they need. This is the principle of least privilege and closely connected to the concept of ‘need to know’ access. Limiting access to resources also prevents cybercriminals from accessing those resources if the user’s computer becomes infected.
+
+##### Full Control
+
+Users can:
+
+- See the contents of a file or folder.
+- Change and delete existing files and folders.
+- Create new files and folders.
+- Run programs in a folder.
+
+##### Modify
+
+Users can change and delete existing files and folders but cannot create new ones.
+
+##### Read and Execute
+
+Users can see the contents of existing files and folders and can run programs in a folder.
+
+##### Write
+
+Users can create new files and folders and make changes to existing files and folders.
+
+##### Read
+
+Users can see the contents of a folder and open files and folders.
+
+If an administrator denies an individual or group permissions to a network share, this will override any other permission settings.
+
+For example, if the administrator denies someone permission to a network share, the user cannot access that share, even if the user is the administrator or part of the administrator group. The local security policy must outline the resources and the type of access allowed for each user and group.
+
+After parent folder permissions have been set, folders and files created inside the parent folder inherit its permissions. The location of data and the action performed on it also determine the permission propagation:
+
+- Data moved to the same volume will keep the original permissions. 
+- Data copied to the same volume will inherit new permissions. 
+- Data moved to a different volume will inherit new permissions.
+- Data copied to a different volume will inherit new permission.
+
+#### 3.3.7 Account Policies in Windows
+
+In most networks that use Windows computers, an administrator configures Active Directory with domains on a Windows server. Windows computers that join the domain become domain members.
+
+The administrator configures a domain security policy that applies to all domain members. For example, account policies are automatically set when a user logs in to Windows.
+
+When a computer is not part of an Active Directory domain, the user configures policies through Windows Local Security Policy. In all versions of Windows except Home edition, enter ‘secpol.msc’ at the Run command to open the Local Security Policy tool.
+
+##### Password Policy
+
+An administrator can configure user account policies such as password policies and lockout policies.
+
+In the example shown, users must change their passwords every 90 days and use each new password for at least one day. Passwords must contain eight characters and three of the following four categories: uppercase letters, lowercase letters, numbers and symbols. Lastly, the user can reuse a password after 24 unique passwords. 
+
+This is just an example; different password policies can be set, depending on organizational requirements and needs.
+
+##### Account Lockout Policy
+
+An account lockout policy locks an account for a set duration when too many incorrect login attempts occur.
+
+For example, the policy shown here allows the user to enter the wrong username and/or password five times. After five attempts, the account locks users out for 30 minutes. After 30 minutes, the number of attempts resets to zero and the user can attempt to log in again.
+
+##### Audit Policies
+
+More security settings are available by selecting the ‘local policies’ folder in Windows. An audit policy creates a security log file used to track the following events:
+
+- Account logon events.
+- Audit account management.
+- Directory service access.
+- Object access.
+- Policy changes.
+- Privilege use.
+- Process tracking.
+- System events.
+
+#### 3.3.8 Authentication Management
+
+Authentication and authorization issues include unencrypted credentials, incorrect permissions and access violations. But how do you keep cybercriminals out while still making it easy for authorized users to log in? Authentication management aims to ensure secure sign in while still providing ease of use.
+
+- A **Single Sign On (SSO)** solution allows the user to use one set of login credentials to authenticate across multiple applications. This way, the user only needs to remember one strong password. 
+- **OAuth** is a standard that enables a user’s account information to be used by third-party services such as Facebook or Google.  
+- A **password vault** can protect and store the user’s credentials with a single strong password required to access them.
+- Many organizations implement **Knowledge-Based Authentication (KBA)** to provide a password reset should a user forget their password. KBA is based on personal information known by the user or a series of questions.
+
+#### 3.3.10 Hash-Based Message Authentication Code (HMAC)
+
+Hash-Based Message Authentication Code (HMAC) uses an encryption key with a hash function to authenticate a web user. Many web services use basic authentication, which does not encrypt the username and password during transmission. Using HMAC, the user sends a private key identifier and an HMAC. The server looks up the user’s private key and creates an HMAC. The user’s HMAC must match the one calculated by the server.
+
+VPNs using IPsec rely on HMAC functions to authenticate the origin of every packet and provide data integrity checking.
+
+Cisco products use hashing for entity authentication, data integrity, and data authenticity purposes
+
+- Cisco IOS router use hashing with secret keys in an HMAC-like manner to add authentication information to routing protocol updates
+- IPsec gateways and clients use hashin algorithms, such as MD5 and SHA-1 in HMAC mode, to provide packet integrity and authenticity
+- Cisco software images on Cisco.com have an MD5-based checksum available so that customers can check the integrity of downloaded images
 
 
 
