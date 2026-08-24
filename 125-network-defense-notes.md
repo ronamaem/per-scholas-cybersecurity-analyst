@@ -1290,3 +1290,205 @@ An organization might even create a **honeynet**, a collection of honeypots, to 
 ##### DNS Sinkholes
 
 A **DNS Sinkhole** prevents the resolution of hostnames for specified URLs and can push users away from malicious resources
+
+## Module 3: Access Control
+
+### 3.1 Access Controls
+
+#### 3.1.2 Physical Access Controls
+
+Physical access controls are actual barriers deployed to prevent direct physical contact with systems. The goal is to prevent unauthorized users from gaining physical access to facilities, equipment and other organizational assets.
+
+For example, physical access control determines who can enter (or exit), where they can enter (or exit) and when they can enter (or exit).
+
+Here are some examples of physical access controls:
+
+- Guards to monitor the facility
+- Fences to protect the perimeter
+- Motion detectors to detect moving objects
+- Laptop locks to safeguard portable equipment
+- Locked doors to prevent unauthorized access
+- Swipe cards to allow access to restricted areas
+- Guard dogs to protect the facility
+- Video cameras to monitor a facility by collecting and recording images
+- Mantrap-style entry systems to stagger the flow of people into the secured area and trap any unwanted visitors
+- Alarms to detect intrusion
+
+#### 3.1.3 Logical Access Controls
+
+Logical access controls are the hardware and software solutions used to manage access to resources and systems. These technology-based solutions include tools and protocols that computer systems use for identification, authentication, authorization and accountability.
+
+Logical access control examples include:
+
+- Encryption is the process of taking plaintext and creating ciphertext.
+- Smart cards have an embedded microchip.
+- Passwords are protected strings of characters.
+- Biometrics are users’ physical characteristics.
+- Access control lists (ACLs) define the type of traffic allowed on a network.
+- Protocols are sets of rules that govern the exchange of data between devices.
+- Firewalls prevent unwanted network traffic.
+- Routers connect at least two networks.
+- Intrusion detection systems monitor a network for suspicious activities.
+- Clipping levels are certain allowed thresholds for errors before triggering a red flag.
+
+#### 3.1.4 Administrative Access Controls
+
+Administrative access controls are the policies and procedures defined by organizations to implement and enforce all aspects of controlling unauthorized access.
+
+Administrative controls focus on personnel and business practices.
+
+- **Policies** are statements of intent
+- **Procedures** are the detailed steps required to perform an activity
+- **Hiring practices** define the steps an organization takes to find qualified employees
+- **Background checks** are a type of employee screening that includes information of past employment verification, credit history, and criminal history
+- **Data classification** categorizes data based on its sensitivity
+- **Security training** educates employees about the security policies at an organization
+- **Reviews** evaluate an employee's job performance
+
+#### 3.1.5 Administrative Access Controls in Detail
+
+Let’s look into administrative access controls in more detail.
+
+The concept of administrative access controls involves three security services: authentication, authorization and accounting (AAA).
+
+These services provide the primary framework to control access, preventing unauthorized access to a computer, network, database or other data resource.
+
+##### Authentication
+
+The first A in AAA represents authentication. Authentication verifies the identity of each user, to prevent unauthorized access. Users prove their identity with a username or ID. In addition, users need to verify their identity by providing one of the following:
+
+- Something they know (such as a password)
+- Something they have (such as a token or card)
+- Something they are (such as a fingerprint)
+  
+In the case of two factor authentication, which is increasingly becoming the norm, the system requires a combination of two of the above rather than just one to verify someone’s identity.
+
+##### Authorization
+
+Authorization services determine which resources users can access, along with the operations that users can perform.
+
+Some systems accomplish this by using an access control list, or an ACL. An ACL determines whether a user has certain access privileges once the user authenticates. Just because you can log onto the corporate network does not mean that you have permission to use the high-speed color printer, for example.
+
+Authorization can also control when a user has access to a specific resource. For example, employees may have access to a sales database during work hours, but the system locks them out afterhours.
+
+##### Accounting
+
+Not related to financial accounting, accounting in AAA keeps track of what users do — including what they access, the amount of time they access resources, and any changes they make.
+
+For example, a bank keeps track of each customer account. An audit of that system can reveal the time and amount of all transactions and the employee or system that executed the transactions. Cybersecurity accounting services work the same way. The system tracks each data transaction and provides auditing results. System administrators can set up computer policies to enable system auditing.
+
+The concept of AAA is like using a credit card. The credit card identifies who can use it, how much that user can spend and accounts for items or services the user purchased.
+
+Cybersecurity accounting tracks and monitors in real time.
+
+#### 3.1.6 What is Identification 
+
+Identification enforces the rules established by the authorization policy. Every time access to a resource is requested, the access controls determine whether to grant or deny access.
+
+A unique identifier ensures the proper association between allowed activities and subjects. A username is the most common method used to identify a user. A username can be an alphanumeric combination, a personal identification number (PIN), a smart card or biometric — such as a fingerprint, retina scan or voice recognition.
+
+A unique identifier ensures that a system can identify each user individually, therefore allowing an authorized user to perform the appropriate actions on a particular resource.
+
+Cybersecurity policies and the sensitivity of the information or systems determine which identification controls should be used and how stringent they should be.
+
+#### 3.1.8 Federated Identity Management
+
+Federated identity management refers to multiple enterprises that let their users use the same identification credentials to gain access to the networks of all enterprises in the group. Unfortunately, this broadens the scope and increases the probability of a cascading effect should an attack occur.
+
+Generally speaking, a federated identity links a subject’s electronic identity across separate identity management systems, such as being able to access several websites using the same social login credentials.
+
+The goal of federated identity management is to share identity information automatically across castle boundaries. From the individual user’s perspective, this means a single sign-on to the web.
+
+It is imperative that organizations scrutinize the identifying information shared with partners, even within the same corporate group, for example. The sharing of social security numbers, names and addresses may allow identity thieves the opportunity to steal this information from a partner to perpetrate fraud. The most common way to protect federated identity is to tie login ability to an authorized device.
+
+#### 3.1.9 Authentication Methods
+
+As we mentioned earlier, users prove their identity with a username or ID. In addition, users need to verify their identity by providing one of the following.
+
+##### What you know
+
+Passwords, passphrases or PINs are all examples of something that the user knows. Passwords are the most popular method used for authentication.
+
+The terms passphrase, passcode, passkey and PIN are all generically referred to as password. A password is a string of characters used to prove a user’s identity. If this string of characters relates back to a user (for instance, if it is their name, birthdate or address), it will be easier for cybercriminals to guess this user’s password.
+
+Several publications recommend that a password be at least eight characters. Users should not create a password that is so long that it is difficult to memorize, or conversely, so short that it becomes vulnerable to password cracking. Passwords should contain a combination of upper and lowercase letters, numbers, and special characters.
+
+Users need to use different passwords for different systems because if a criminal cracks the user’s password once, the criminal will have access to all of the user’s accounts. A password manager can help you create and use strong passwords — and means that you do not have to remember each of these passwords, either. 
+
+##### What you have
+
+Smart cards and security key fobs are both examples of something that users have in their possession that can be used for authentication purposes.
+
+A smart card is a small plastic card, about the size of a credit card, with a small chip embedded in it. The chip is an intelligent data carrier, capable of processing, storing and safeguarding data. Smart cards contain private information, such as bank account numbers, personal identification, medical records and digital signatures, using encryption to keep data safe while providing a means to authenticate.
+
+A security key fob is a device that is small enough to attach to a keyring. In most cases, security key fobs are used for two factor authentication (2FA), which is much more secure than a username and password combination.
+
+For example, let’s say you want to access your e-banking, which uses two factor authentication. First, you enter your username (identification). Then, the password, which is your first authentication factor. Then, you need a second one, because it's 2FA. You enter a PIN or card to your security fob, and it displays a number. Proving that you have access to this device, which was issued to you, this number is the second factor, which you then enter to log in to the e-banking account, in this example.
+
+##### Who you are
+
+Unique physical characteristics, such as a fingerprint, retina or voice, which identify a specific person are called biometrics. Biometric security compares physical characteristics against stored profiles to authenticate users. In this case, a profile is a data file containing known characteristics of an individual. The system grants the user access if their characteristics match saved settings. A fingerprint reader is a common biometric device.
+
+There are two types of biometric identifiers:
+
+- Physiological characteristics — fingerprints, DNA, face, hands, the retina or ear features.
+- Behavioral characteristics — patterns of behavior such as gestures, voice, gait or typing rhythm.
+
+Biometrics is becoming increasingly popular in public security systems, consumer electronics and point-of-sale applications. Implementing biometrics involves a reader or scanning device, software that converts the scanned information into digital form and a database that has biometric data stored for comparison.
+
+#### 3.1.10 Multi-Factory Authentication
+
+As we’ve touched upon earlier, multi-factor authentication uses at least two methods of verification — such as a password and something you have, for example, a security key fob. This can be taken a step further by adding something you are, such as a fingerprint scan.
+
+Multi-factor authentication can reduce the incidence of online identity theft because it means knowing a password will not give cybercriminals access to a user’s account.
+
+For example, an online banking website might require a password and a one-off PIN that the user receives on his or her smartphone. In this case, your first factor is your password, and your second factor the temporary PIN, because it proves you have access to what is registered as your phone.
+
+Withdrawing cash from an ATM is another, simple example of multi-factor authentication as the user must have the bank card as well as know the PIN before the ATM will dispense cash.
+
+Note that two factor authentication (2FA) is a method of multi-factor authentication that entails two factors in particular, but the two terms are often used interchangeably.
+
+#### 3.1.12 Authorization 
+
+Authorization controls what a user can and cannot do on the network after successful authentication. After a user proves their identity, the system checks to see what network resources the user can access and what they can do with the resources.
+
+##### When to implement authorization
+
+Authorization uses a set of attributes that describes the user’s access to the network, to answer the question, ‘What read, copy, edit, create and delete privileges does this user have?’
+
+The system compares these attributes to the information contained within the authentication database, determines a set of restrictions for that user, and delivers it to the local device where the user is connected.
+
+Authorization is automatic and does not require users to perform additional steps after authentication. System administrators have set the network up to implement authorization immediately after the user authenticates.
+
+##### Using authorization
+
+Defining authorization rules is the first step in controlling access. An authorization policy establishes these rules.
+
+A group membership policy defines authorization based on users’ membership in a specific group. All employees of an organization may have a swipe card, for example, which provides access to the premises, but it might not allow access to a server room. It may be that only senior-level employees and IT team members may access the server room with their swipe cards.
+
+An authority-level policy defines access permissions based on an employee’s position within the organization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
