@@ -1708,12 +1708,180 @@ Cisco products use hashing for entity authentication, data integrity, and data a
 - IPsec gateways and clients use hashin algorithms, such as MD5 and SHA-1 in HMAC mode, to provide packet integrity and authenticity
 - Cisco software images on Cisco.com have an MD5-based checksum available so that customers can check the integrity of downloaded images
 
+#### 3.3.12 Authentication Protocols and Technologies
 
+An authentication protocol authenticates data between two entities to prevent unauthorized access. A protocol outlines the type of information that needs to be shared in order to authenticate and connect.
 
+##### Extensible Authentication Protocol (EAP)
 
+A password from the client is sent using a hash to the authentication server. The authentication server has a certificate (the client does not need a certificate).
 
+##### Password Authentication Protocol (PAP)
 
+A username and password are sent to a remote access server in plaintext. Most network operating system remote servers support PAP.
 
+##### Challenge Handshake Authentication Protocol (CHAP)
+
+CHAP validates the identity of remote clients using a one-way hashing function created by the client. The service also calculates the expected hash value. The server (the authenticator) compares the two values. If the values match, the transmission continues. CHAP also periodically verifies the identity of the client during the transmission.
+
+##### 802.1x
+
+An organization authenticates your identity and authorizes access to the network. Your identity is determined based on credentials or a certificate which is confirmed by a RADIUS server.
+
+##### RADIUS
+
+When simple username/password authentication is needed, use RADIUS to either accept or deny access. RADIUS only encrypts the user’s password from the RADIUS client to the RADIUS server. The username, accounting and authorized services are transmitted in cleartext. When RADIUS is integrated into a product, security measures that protect against replay attacks are necessary.
+
+##### TACACS+
+
+TACACS+ uses TCP as its transport protocol. TACACS+ encrypts all of the data (username, password, accounting and authorized services) between the client and the server. Since network administrators can define ACLs, filters and user privileges, TACACS+ is a better choice for corporate networks requiring more sophisticated authentication steps and control over authorization activities.
+
+##### Kerberos
+
+Kerberos uses strong encryption, requesting a client to prove its identity to a server, with the server in turn authenticating itself to the client.
+
+The Kerberos server contains user IDs and hashed passwords for all users that will have authorizations to realm services. The Kerberos server also has shared secret keys with every server to which it will grant access tickets. The basis for authentication in a Kerberos environment is the ticket. Tickets are used in a two-step process with the client. The first ticket is a ticket-granting ticket issued by the authentication service to a requesting client. The client can then present this ticket to the Kerberos server with a request for a ticket to access a specific server. 
+
+This client-to-server ticket (aka service ticket) is used to gain access to a server’s service. Since the entire session can be encrypted, this eliminates the inherently insecure transmission of items (such as passwords) that can be intercepted on the network. Tickets are timestamped and expire, so any attempt to reuse a ticket will not be successful.
+
+#### 3.3.13 Applications of Cryptographic Hash Functions
+
+As we have seen previously, cryptographic hash functions help us to ensure data integrity and verify authentication. Cryptographic hash functions are used in the following situations:
+
+- To provide proof of authenticity when used with a symmetric secret authentication key such as IP security (IPsec) or routing protocol authentication.
+- To provide authentication by generating one-time and one-way responses to challenges in authentication protocols.
+- To provide message integrity check proof (such as those used in digitally signed contracts) and Public Key Infrastructure (PKI) certificates (like those accepted when accessing a secure website).
+When choosing a hashing algorithm, use SHA-256 or higher, as they are currently the most secure. Avoid SHA-1 and MD5 due to security flaws that have been discovered.
+
+While hashing can detect accidental changes, it cannot guard against deliberate changes and is therefore vulnerable to man-in-the-middle attacks.
+
+#### 3.3.15 Access Control Strategies
+
+Access control strategies enable an organization to grant or restrict access to a network device or data.
+
+##### Mandatory Access Control
+
+Mandatory access control restricts the actions that a user can perform on an object (such as a file, a port or a device). An authorization rule enforces whether a user can access the object.
+
+Organizations use mandatory access control where different levels of security classifications exist. Every object has a label, and every user has a clearance. A mandatory access control system restricts a user based on the security classification of the object and the label attached to the user.
+
+##### Discretionary Access Control
+
+In systems that employ discretionary access controls, the owner of an object can decide which users can access that object and what specific access they may have.
+
+Permissions and access control lists can be used to implement discretionary access control. The owner of a file can specify what permissions (such as read, write, or execute) other users may have. An access control list uses rules to determine what traffic can enter or exit a network.
+
+##### Role-based Access Control
+
+Role-based access control depends on the role or job function of the user. Specific roles require permissions to perform certain operations and users acquire permissions through their role.
+
+Role-based access control can work in combination with discretionary access controls or mandatory access controls by enforcing the policies of either one. Role-based access control helps to implement security administration in large organizations with hundreds of users and thousands of possible permissions. Organizations widely accept the use of role-based access control to manage computer permissions within a system, or application, as a best practice.
+
+##### Rule-based Access Control
+
+Rule-based access control uses access control lists to help determine whether to grant access. A series of rules is contained in the access control list and the decision to grant access depends on these rules. For example, a rule stating that no employee may have access to the payroll file after hours or on weekends.
+
+As with mandatory access control, users cannot change the access rules. Importantly, organizations can combine rule-based access control with other strategies for implementing access restrictions. For example, mandatory access control methods can utilize a rule-based approach for implementation.
+
+### 3.4 AAA Usage and Operation
+
+#### 3.4.1 AAA Operation
+
+A network must be designed to control who is allowed to connect to it and what they are allowed to do when they are connected. These design requirements are identified in the network security policy. The policy specifies how network administrators, corporate users, remote users, business partners, and clients access network resources. The network security policy can also mandate the implementation of an accounting system that tracks who logged in and when and what they did while logged in. Some compliance regulations may specify that access must be logged and the logs retained for a set period of time.
+
+The Authentication, Authorization, and Accounting (AAA) protocol provides the necessary framework to enable scalable access security.
+
+The three independent security functions provided by the AAA architectural framework.
+
+##### Authentication
+
+- Users and administrators must prove that they are who they say they are.
+- Authentication can be established using username and password combinations, challenge and response questions, token cards, and other methods.
+- AAA authentication provides a centralized way to control access to the network.
+
+##### Authorization
+
+- After the user is authenticated, authorization services determine which resources the user can access and which operations the user is allowed to perform.
+- An example is “User ‘student’ can access host server XYZ using SSH only.”
+
+##### Accounting
+
+- Accounting records what the user does, including what is accessed, the amount of time the resource is accessed, and any changes that were made.
+- Accounting keeps track of how network resources are used.
+- An example is "User ‘student’ accessed host server XYZ using SSH for 15 minutes."
+
+This concept is similar to the use of a credit card, as indicated by the figure. The credit card identifies who can use it, how much that user can spend, and keeps account of what items the user spent money on.
+
+#### 3.4.2 AAA Authentication
+
+AAA Authentication can be used to authenticate users for administrative access or it can be used to authenticate users for remote network access.
+
+Cisco provides two common methods of implementing AAA services.
+
+##### Local AAA Authentication
+
+This method is sometimes known as self-contained authentication because it authenticates users against locally stored usernames and passwords, as shown in the figure. Local AAA is ideal for small networks.
+
+##### Server-Based AAA Authentication
+
+This method authenticates against a central AAA server that contains the usernames and passwords for all users, as shown in the figure. Server-based AAA authentication is appropriate for medium-to-large networks.
+
+Centralized AAA is more scalable and manageable than local AAA authentication and therefore, it is the preferred AAA implementation
+
+A centralized AAA system may independently maintain databases for authentication, authorization, and accounting. It can leverage Active Directory or Lightweight Directory Access Protocol (LDAP) for user authentication and group membership, while maintaining its own authorization and accounting databases
+
+Devices communicate with the centralized AAA server using either the Remote Authentication Dial-In User Service (RADIUS) or Terminal Access Controller Access Control System (TACACS+) protocols
+
+The table lists the differences between the two protocols
+
+|| TACACS+ | RADIUS |
+| --- | --- | --- |
+| **Functionality** | It separates authentication, authorization, and accounting functions according to the AAA architecture. This allows modularity of the security server implementation | It combines authentication and authorization but separates accounting, which allows less flexibility in implementation than TACACS+ |
+| **Standard** | Mostly Cisco supported | Open/RFC standard |
+| **Transport** | TCP port 49 | UDP ports 1812 and 1813, or 1645 and 1646 |
+| **Protocol CHAP** | Bidirectional challenge and response as used in Challenge Handshake Authentication Protocol (CHAP) | Undirectional challenge and response from the RADIUS security server to the RADIUS client |
+| **Confidentiality** | Encrypts the entire body of the packet but leaves a standard TACACS+ header | Encrypts only the password in the access-request packet from the client to the server. The remainder of the packet is unencrypted, leaving the username, authorized services, and accounting unprotected |
+| **Customization** | Provides authorization of router commands on a per-user or per-group basis |
+| **Accounting** | Limited | Extensive |
+
+#### 3.4.3 AAA Accounting Logs
+
+##### Physical Topology
+
+Centralized AAA also enables the use of the Accounting method. Accounting records from all devices are sent to centralized repositories, which simplifies auditing of user actions.
+
+AAA Accounting collects and reports usage data in AAA logs. These logs are useful for security auditing. The collected data might include the start and stop connection times, executed commands, number of packets, and number of bytes.
+
+One widely deployed use of accounting is to combine it with AAA authentication. This helps with managing access to internetworking devices by network administrative staff. Accounting provides more security than just authentication. The AAA servers keep a detailed log of exactly what the authenticated user does on the device, as shown in the figure. This includes all EXEC and configuration commands issued by the user. The log contains numerous data fields, including the username, the date and time, and the actual command that was entered by the user. This information is useful when troubleshooting devices. It also provides evidence against individuals who perform malicious actions.
+
+1. When a user has been authenticated, the AAA accounting process generates a start message to begin the accounting process.
+2. When the user finishes, a stop message is recorded and the accounting process ends.
+
+The following displays the various types of accounting information that can be collected
+
+##### Network Accounting
+
+Network accounting captures information for all Point-to-Point Protocol (PPP) sessions, including packet and byte counts.
+
+##### Connection Accounting
+
+Connection accounting captures information about all outbound connections that are made from the AAA client, such as by SSH.
+
+##### EXEC Accounting
+
+EXEC accounting captures information about user EXEC terminal sessions (user shells) on the network access server, including username, date, start and stop times, and the access server IP address.
+
+##### System Accounting
+
+System accounting captures information about all system-level events (for example, when the system reboots or when accounting is turned on or off).
+
+##### Command Accounting
+
+Command accounting captures information about the EXEC shell commands for a specified privilege level, as well as the date and time each command was executed, and the user who executed it.
+
+##### Resource Accounting
+
+The Cisco implementation of AAA accounting captures “start” and “stop” record support for connections that have passed user authentication. The additional feature of generating “stop” records for connections that fail to authenticate as part of user authentication is also supported. Such records are necessary for users employing accounting records to manage and monitor their networks.
 
 
 
