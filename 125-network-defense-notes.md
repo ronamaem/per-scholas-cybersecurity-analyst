@@ -1883,6 +1883,263 @@ Command accounting captures information about the EXEC shell commands for a spec
 
 The Cisco implementation of AAA accounting captures “start” and “stop” record support for connections that have passed user authentication. The additional feature of generating “stop” records for connections that fail to authenticate as part of user authentication is also supported. Such records are necessary for users employing accounting records to manage and monitor their networks.
 
+## Module 4: Access Control Lists
+
+### 4.1 Introduction to Access Control Lists
+
+#### 4.1.1 What is an ACL?
+
+Routers make routing decisions based on information in the packet header. Traffic entering a router interface is routed solely based on information within the routing table. The router compares the destination IP address with routes in the routing table to find the best match and then forwards the packet based on the best match route. That same process can be used to filter traffic using an access control list (ACL).
+
+An ACL is a series of IOS commands that are used to filter packets based on information found in the packet header. By default, a router does not have any ACLs configured. However, when an ACL is applied to an interface, the router performs the additional task of evaluating all network packets as they pass through the interface to determine if the packet can be forwarded.
+
+An ACL uses a sequential list of permit or deny statements, known as access control entries (ACEs).
+
+Note: ACEs are also commonly called ACL statements.
+
+When network traffic passes through an interface configured with an ACL, the router compares the information within the packet against each ACE, in sequential order, to determine if the packet matches one of the ACEs. This process is called packet filtering.
+
+Several tasks performed by routers require the use of ACLs to identify traffic. The table lists some of these tasks with examples.
+
+##### Limit network traffic to increase network performance
+
+- A corporate policy prohibits video traffic on the network to reduce the network load.
+- A policy can be enforced using ACLs to block video traffic.
+
+##### Provide traffic flow control
+
+- A corporate policy requires that routing protocol traffic be limited to certain links only.
+- A policy can be implemented using ACLs to restrict the delivery of routing updates to only those that come from a known source.
+
+##### Provide a basic level of security for network access
+
+- Corporate policy demands that access to the Human Resources network be restricted to authorized users only.
+- A policy can be enforced using ACLs to limit access to specified networks.
+
+##### Filter traffic based on traffic type
+
+- Corporate policy requires that email traffic be permitted into a network, but that Telnet access be denied.
+- A policy can be implemented using ACLs to filter traffic by type.
+
+##### Screen hosts to permit or deny access to network services
+
+- Corporate policy requires that access to some file types (e.g., FTP or HTTP) be limited to user groups.
+- A policy can be implemented using ACLs to filter user access to services.
+
+##### Provide priority to certain classes of network traffic
+
+- Corporate traffic specifies that voice traffic be forwarded as fast as possible to avoid any interruption.
+- A policy can be implemented using ACLs and QoS services to identify voice traffic and process it immediately.
+
+#### 4.1.2 Packet Filtering
+
+Packet filtering controls access to a network by analyzing the incoming and/or outgoing packets and forwarding them or discarding them based on given criteria. Packet filtering can occur at Layer 3 or Layer 4.
+
+Cisco routers support two types of ACLs:
+
+- Standard ACLs - ACLs only filter at Layer 3 using the source IPv4 address only.
+- Extended ACLs - ACLs filter at Layer 3 using the source and / or destination IPv4 address. They can also filter at Layer 4 using TCP, UDP ports, and optional protocol type information for finer control.
+
+#### 4.1.3 Numbered and Named ACLs
+
+##### Numbered ACLs
+
+ACLs number 1 to 99, or 1300 to 1999 are standard ACLs while ACLs number 100 to 199, or 2000 to 2699 are extended ACLs, as shown in the output.
+
+##### Named ACLs
+
+Named ACLs is the preferred method to use when configuring ACLs. Specifically, standard and extended ACLs can be named to provide information about the purpose of the ACL. For example, naming an extended ACL FTP-FILTER is far better than having a numbered ACL 100.
+
+The **ip access-list** global configuration command is used to create a named ACL, as shown in the following example.
+
+The following summarizes the rules to follow for named ACLs:
+
+- Assign a name to identify the purpose of the ACL.
+- Names can contain alphanumeric characters.
+- Names cannot contain spaces or punctuation.
+- It is suggested that the name be written in CAPITAL LETTERS.
+- Entries can be added or deleted within the ACL.
+
+#### 4.1.4 ACL Operation
+
+ACLs define the set of rules that give added control for packets that enter inbound interfaces, packets that relay through the router, and packets that exit outbound interfaces of the router.
+
+ACLs can be configured to apply to inbound traffic and outbound traffic, as shown in the figure.
+
+Note: ACLs do not act on packets that originate from the router itself.
+
+An inbound ACL filters packets before they are routed to the outbound interface. An inbound ACL is efficient because it saves the overhead of routing lookups if the packet is discarded. If the packet is permitted by the ACL, it is then processed for routing. Inbound ACLs are best used to filter packets when the network attached to an inbound interface is the only source of packets that need to be examined.
+
+An outbound ACL filters packets after being routed, regardless of the inbound interface. Incoming packets are routed to the outbound interface and then they are processed through the outbound ACL. Outbound ACLs are best used when the same filter will be applied to packets coming from multiple inbound interfaces before exiting the same outbound interface.
+
+When an ACL is applied to an interface, it follows a specific operating procedure. For example, here are the operational steps used when traffic has entered a router interface with an inbound standard IPv4 ACL configured:
+
+1. The router extracts the source IPv4 address from the packet header.
+2. The router starts at the top of the ACL and compares the source IPv4 address to each ACE in a sequential order.
+3. When a match is made, the router carries out the instruction, either permitting or denying the packet, and the remaining ACEs in the ACL, if any, are not analyzed.
+4. If the source IPv4 address does not match any ACEs in the ACL, the packet is discarded because there is an implicit deny ACE automatically applied to all ACLs.
+
+The last ACE statement of an ACL is always an implicit deny that blocks all traffic. By default, this statement is automatically implied at the end of an ACL even though it is hidden and not displayed in the configuration.
+
+Note: An ACL must have at least one permit statement otherwise all traffic will be denied due to the implicit deny ACE statement.
+
+### 4.2 Wildcard Masking
+
+In the previous topic, you learned about the purpose of ACLs. This topic explains how ACLs use wildcard masks. An IPv4 ACE uses a 32-bit wildcard mask to determine which bits of the address to examine for a match. Wildcard masks are also used by the Open Shortest Path First (OSPF) routing protocol.
+
+A wildcard mask is similar to a subnet mask in that it uses the ANDing process to identify which bits in an IPv4 address to match. However, they differ in the way they match binary 1s and 0s. Unlike a subnet mask, in which binary 1 is equal to a match and binary 0 is not a match, in a wildcard mask, the reverse is true.
+
+Wildcard masks use the following rules to match binary 1s and 0s:
+
+- **Wildcard mask bit 0** - Match the corresponding bit value in the address
+- **Wildcard mask bit 1** - Ignore the corresponding bit value in the address
+
+The table lists some examples of wildcard masks and what they would identify
+
+| **Wildcard Mask** | **Last Octet (in Binary)** | **Meaning (0 - match, 1 - ignore)** |
+| --- | --- | --- |
+| 0.0.0.0 | 00000000 | Match all octets |
+| 0.0.0.63 | 00111111 | Match the first three octets. Match the two left-most bits of the last octet. Ignore the last 6 bits. |
+| 0.0.0.15 | 00001111 | Match the first three octets. Match the four left-most bits of the last octet. Ignore the last 4 bits of the last octet. |
+| 0.0.0.252 | 11111100 | Match the first three octets. Ignore the six left-most bits of the last octet. Match the last two bits |
+| 0.0.0.255 | 11111111 | Match the first three octets. Ignore the last octet | 
+
+#### 4.2.2 Wildcard Mask Types
+
+##### Wildcard to Match a Host
+
+In this example, the wildcard mask is used to match a specific host IPv4 address. Assume ACL 10 needs an ACE that only permits the host with IPv4 address 192.168.1.1. Recall that “0” equals a match and “1” equals ignore. To match a specific host IPv4 address, a wildcard mask consisting of all zeroes (i.e., 0.0.0.0) is required.
+
+The table lists in binary, the host IPv4 address, the wildcard mask, and the permitted IPv4 address.
+
+The 0.0.0.0 wildcard mask stipulates that every bit must match exactly. Therefore, when the ACE is processed, the wildcard mask will permit only the 192.168.1.1 address. The resulting ACE in ACL 10 would be **access-list 10 permit 192.168.1.1 0.0.0.0.**
+
+| | Decimal | Binary | 
+| --- | --- | --- |
+| IPv4 address | 192.168.1.1 | 11000000.10101000.00000001.00000001 |
+| Wildcard Mask | 0.0.0.0 | 00000000.00000000.00000000.00000000 |
+| Permitted IPv4 Address | 192.168.1.1 | 11000000.10101000.00000001.00000001 |
+
+##### Wildcard Mask to Match an IPv4 Subnet
+
+In this example, ACL 10 needs an ACE that permits all hosts in the 192.168.1.0/24 network. The wildcard mask 0.0.0.255 stipulates that the very first three octets must match exactly but the fourth octet does not.
+
+The table lists in binary, the host IPv4 address, the wildcard mask, and the permitted IPv4 addresses.
+
+When processed, the wildcard mask 0.0.0.255 permits all hosts in the 192.168.1.0/24 network. The resulting ACE in ACL 10 would be **access-list 10 permit 192.168.1.0 0.0.0.255.**
+
+| | Decimal | Binary | 
+| --- | --- | --- |
+| IPv4 Address | 192.168.1.1 | 11000000.10101000.00000001.00000001 |
+| Wildcard Mask | 0.0.0.255 | 00000000.00000000.00000000.11111111 |
+| Permitted Host IPv4 Addresses | 192.168.1.1 to 192.168.1.254 | 11000000.10101000.00000001.00000001 to 11000000.10101000.00000001.11111111 |
+
+##### Wildcard Mask to Match an IPv4 Address Range
+
+In this example, ACL 10 needs an ACE that permits all hosts in the 192.168.16.0/24, 192.168.17.0/24, …, 192.168.31.0/24 networks. The wildcard mask 0.0.15.255 would correctly filter that range of addresses.
+
+The table lists in binary the host IPv4 address, the wildcard mask, and the permitted IPv4 addresses.
+
+The highlighted wildcard mask bits identify which bits of the IPv4 address must match. When processed, the wildcard mask 0.0.15.255 permits all hosts in the 192.168.16.0/24 to 192.168.31.0/24 networks. The resulting ACE in ACL 10 would be **access-list 10 permit 192.168.16.0 0.0.15.255.**
+
+| | Decimal | Binary | 
+| --- | --- | --- |
+| IPv4 Address | 192.168.16.0 | 11000000.10101000.00010000.00000000 |
+| Wildcard Mask | 0.0.15.255 | 00000000.00000000.00001111.11111111 |
+| Permitted Host IPv4 Addresses | 192.168.16.1 to 192.168.31.254 | 11000000.10101000.00010000.00000000 to 11000000.10101000.00011111.11111111 |
+
+#### 4.2.3 Wildcard Mask Calculation
+
+Calculating wildcard masks can be challenging. One shortcut method is to subtract the subnet mask from 255.255.255.255. 
+
+##### Example 1
+
+Assume you wanted an ACE in ACL 10 to permit access to all users in the 192.168.3.0/24 network. To calculate the wildcard mask, subtract the subnet mask (i.e., 255.255.255.0) from 255.255.255.255, as shown in the table.
+
+The solution produces the wildcard mask 0.0.0.255. Therefore, the ACE would be **access-list 10 permit 192.168.3.0 0.0.0.255.**
+
+| | Calculation |
+| --- | --- |
+| Starting Value | 255.255.255.255 |
+| Subtract the subnet mask | - 255.255.255.0 |
+| Resulting wildcard mask | 0.0.0.255 |
+
+##### Example 3
+
+In this example, assume you needed an ACE in ACL 10 to permit only networks 192.168.10.0 and 192.168.11.0. These two networks could be summarized as 192.168.10.0/23 which is a subnet mask of 255.255.254.0. Again, you subtract 255.255.254.0 subnet mask from 255.255.255.255, as shown in the table.
+
+This solution produces the wildcard mask 0.0.1.255. Therefore, the ACE would be a**ccess-list 10 permit 192.168.10.0 0.0.1.255.**
+
+| | Calculation |
+| --- | --- |
+| Starting Value | 255.255.255.255 |
+| Subtract the subnet mask | - 255.255.254.0 |
+| Resulting wildcard mask | 0.0.1.255 |
+
+##### Example 4
+
+Consider an example in which you need an ACL number 10 to match networks in the range between 192.168.16.0/24 to 192.168.31.0/24. This network range could be summarized as 192.168.16.0/20 which is a subnet mask of 255.255.240.0. Therefore, subtract 255.255.240.0 subnet mask from 255.255.255.255, as shown in the table.
+
+This solution produces the wildcard mask 0.0.15.255. Therefore, the ACE would be **access-list 10 permit 192.168.16.0 0.0.15.255.**
+
+| | Calculation |
+| --- | --- |
+| Starting Value | 255.255.255.255 |
+| Subtract the subnet mask | - 255.255.240.0 |
+| Resulting wildcard mask | 0.0.15.255 |
+
+#### 4.2.4 Wildcard Mask Keywords
+
+Working with decimal representations of binary wildcard mask bits can be tedious. To simplify this task, the Cisco IOS provides two keywords to identify the most common uses of wildcard masking. Keywords reduce ACL keystrokes but more importantly, keywords make it easier to read the ACE.
+
+The two keywords are:
+
+- **host** - This keyword substitutes for the 0.0.0.0 mask. This mask states that all IPv4 address bits must match to filter just one host address.
+- **any** - This keyword substitutes for the 255.255.255.255 mask. This mask says to ignore the entire IPv4 address or to accept any addresses.
+
+Alternatively, the keywords host and any could have been used to replace the highlighted output.
+
+### 4.3 Configure ACLs
+
+#### 4.3.1 Create an ACL
+
+In a previous topic, you learned about what an ACL does and why it is important. In this topic, you will learn about creating ACLs.
+
+All access control lists (ACLs) must be planned. However, this is especially true for ACLs requiring multiple access control entries (ACEs).
+
+When configuring a complex ACL, it is suggested that you:
+
+- Use a text editor and write out the specifics of the policy to be implemented.
+- Add the IOS configuration commands to accomplish those tasks.
+- Include remarks to document the ACL.
+- Copy and paste the commands onto the device.
+- Always thoroughly test an ACL to ensure that it correctly applies the desired policy.
+
+These recommendations enable you to create the ACL thoughtfully without impacting the traffic on the network.
+
+#### 4.3.2 Numbered Standard IPv4 ACL Syntax
+
+To create a numbered standard ACL, use the following global configuration command:
+
+Use the **no access-list** access-list-number global configuration command to remove a numbered standard ACL
+
+|**Parameter**| **Description** |
+| --- | --- |
+| **access-list-number** | This is the decimal number of the ACL. Standard ACL number range is 1 to 99 or 1300 to 1999 |
+| **deny**| This denies access if the condition is matched |
+| **permit** | This permits access if the condition is matched |
+| **remark text** | (Optional) This adds a text entry for documentation purposes. Remarks are extremely useful, especially in longer or more complex ACLs. Each remark is limited to 100 characters |
+| **source** | This identifies the source network or host address to filter. Use the **any** keyword to specify all networks. Use the **host** ip-address keyword or simply enter an ip-address (without the host keyword) to identify a specific IP address. |
+| **source-wildcard** | (Optional) This is a 32-bit wildcard mask that is applied to the source. If omitted, a default 0.0.0.0 mask is assumed. |
+| **log** | (Optional. This keyword generates an informational message whenever the ACE is matched. Message includes ACL number, matched condition (i.e., permitted or denied), source address, and number of packets.
+This message is generated for the first matched packet. Unfortunately, ACL logging can be CPU intensive and can negatively affect other functions therefore it should only be implemented for troubleshooting or security reasons. |
+
+#### 4.3.3 Named Standard IPv4 ACL Syntax
+
+
+
+
+
 
 
 
