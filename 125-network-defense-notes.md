@@ -2131,23 +2131,493 @@ Use the **no access-list** access-list-number global configuration command to re
 | **remark text** | (Optional) This adds a text entry for documentation purposes. Remarks are extremely useful, especially in longer or more complex ACLs. Each remark is limited to 100 characters |
 | **source** | This identifies the source network or host address to filter. Use the **any** keyword to specify all networks. Use the **host** ip-address keyword or simply enter an ip-address (without the host keyword) to identify a specific IP address. |
 | **source-wildcard** | (Optional) This is a 32-bit wildcard mask that is applied to the source. If omitted, a default 0.0.0.0 mask is assumed. |
-| **log** | (Optional. This keyword generates an informational message whenever the ACE is matched. Message includes ACL number, matched condition (i.e., permitted or denied), source address, and number of packets.
-This message is generated for the first matched packet. Unfortunately, ACL logging can be CPU intensive and can negatively affect other functions therefore it should only be implemented for troubleshooting or security reasons. |
+| **log** | (Optional. This keyword generates an informational message whenever the ACE is matched. Message includes ACL number, matched condition (i.e., permitted or denied), source address, and number of packets. This message is generated for the first matched packet. Unfortunately, ACL logging can be CPU intensive and can negatively affect other functions therefore it should only be implemented for troubleshooting or security reasons. |
 
 #### 4.3.3 Named Standard IPv4 ACL Syntax
 
+Naming an ACL makes it easier to understand its function. To create a named standard ACL, use the following global configuration command:
 
+- Router(config)# ip access-list standard access-list-name
 
+This command enters the named standard configuration mode where you configure the ACL ACEs.
 
+ACL names are alphanumeric, case sensitive, and must be unique. Capitalizing ACL names is not required but makes them stand out when viewing the running-config output. It also makes it less likely that you will accidentally create two different ACLs with the same name but with different uses of capitalization.
 
+Note: Use the **no ip access-list standard** access-list-name global configuration command to remove a named standard IPv4 ACL.
 
+In the example, a named standard IPv4 ACL called NO-ACCESS is created. Notice that the prompt changes to named standard ACL configuration mode. ACE statements are entered in the named standard ACL sub configuration mode. Use the help facility to view all the named standard ACL ACE options.
 
+The three highlighted options are configured similar to the numbered standard ACL. Unlike the numbered ACL method, there is no need to repeat the initial **ip access-list** command for each ACE.
 
+R1(config)# ip access-list standard NO-ACCESS
+R1(config-std-nacl)# ?
+Standard Access List configuration commands:
+  <1-2147483647> Sequence Number
+  default        Set a command to its defaults
+  deny           Specify packets to reject
+  exit           Exit from access-list configuration mode
+  no             Negate a command or set its defaults
+  permit         Specify packets to forward
+  remark         Access list entry comment
+R1(config-std-nacl)#
 
+#### 4.3.4 Numbered Extended IPv4 ACL Syntax
 
+The procedural steps for configuring extended ACLs are the same as for standard ACLs. The extended ACL is first configured, and then it is activated on an interface. However, the command syntax and parameters are more complex to support the additional features provided by extended ACLs.
 
+To create a numbered extended ACL, use the following global configuration command:
 
+- Router(config)# access-list access-list-number {deny | permit | remark text} protocol source source-wildcard [ operator {port}] destination destination-wildcard [operator {port}] [established] [log]
 
+Use the **no access-list** access-list-number global configuration command to remove extended ACL
+
+Although there are many keywords and parameters for extended ACLs, it is not necessary to use all of them when configuring an extended ACL. The table provides a detailed explanation of a syntax for an extended ACL
+
+| **Parameter** | **Description** |
+| --- | --- |
+| **access-list-number** | This is the decimal number of the ACL. Extended ACL number range is 100 to 199 and 2000 to 2699. |
+| **deny** | This denies access if the condition is matched |
+| **permit** | This permits access if the condition is matched |
+| **remark text** | (Optional) This adds a text entry for documentation purposes. Each remark is limited to 100 characters. |
+| **protocol** | Name or number of an internet protocol. Common keywords include **ip, tcp, udp, and icmp.** The **ip** keyword matches all IP protocols. |
+| **source** | • Identifies the source network or host address to filter.<br>• Use the `any` keyword to specify all networks.<br>• Use the `host ip-address` keyword or simply enter an IP address (without the `host` keyword) to identify a specific IP address. |
+| **source-wildcard** | (Optional) A 32-bit wildcard mask that is applied to the source. |
+| **destination-wildcard** | (Optional) A 32-bit wildcard mask that is applied to the destination. |
+| **destination** | • Identifies the destination network or host address to filter.<br>• Use the `any` keyword to specify all networks.<br>• Use the `host ip-address` keyword or `ip-address`. |
+| **established** | • (Optional) For the TCP protocol only.<br>• This is a 1st generation firewall feature. |
+| **port** | (Optional) The decimal number or name of a TCP or UDP port. |
+| **operator** | • (Optional) Compares source or destination ports.<br>• Operators include `lt` (less than), `gt` (greater than), `eq` (equal), and `neq` (not equal). |
+| **log** | • (Optional) Generates an informational message whenever the ACE is matched.<br>• Message includes ACL number, matched condition (permitted or denied), source address, and number of packets.<br>• The message is generated for the first matched packet.<br>• This keyword should only be implemented for troubleshooting or security reasons. |
+
+The command to apply an extended IPv4 ACL to an interface is the same as the command used for standard IPv4 ACLs.
+
+- Router(config-if)# ip access-group {access-list-number | access-list-name} {in | out}
+
+To remove an ACL from an interface, first enter the no ip access-group interface configuration command. To remove the ACL from the router, use the no access-list global configuration command.
+
+Note: The internal logic applied to the ordering of standard ACL statements does not apply to extended ACLs. The order in which the statements are entered during configuration is the order they are displayed and processed.
+
+#### 4.3.5 Protocols and Port Numbers
+Extended ACLs can filter on many different types of internet protocols and ports. 
+
+##### Protocol Options
+
+The four highlighted protocols are the most popular options.
+
+Note: Use the ? to get help when entering a complex ACE.
+
+Note: If an internet protocol is not listed, then the IP protocol number could be specified. For instance, the ICMP protocol number 1, TCP is 6, and UDP is 17.
+
+R1(config)# access-list 100 permit ?
+<0-255>           An IP protocol number
+ahp               Authentication Header Protocol
+dvmrp             dvmrp
+eigrp             Cisco's EIGRP routing protocol
+esp               Encapsulation Security Payload
+gre               Cisco's GRE tunneling
+icmp              Internet Control Message Protocol
+igmp              Internet Gateway Message Protocol
+ip                Any Internet Protocol
+ipinip            IP in IP tunneling
+nos               KA9Q NOS compatible IP over IP tunneling
+object-group      Service object group
+ospf              OSPF routing protocol
+pcp              Payload Compression Protocol
+pim              Protocol Independent Multicast
+tcp              Transmission Control Protocol
+udp              User Datagram Protocol
+R1(config)# access-list 100 permit
+
+##### Port Keyword Options
+
+Selecting a protocol influences port options. For instance, selecting the:
+
+- **tcp** protocol would provide TCP related ports options
+- **udp** protocol would provide UDP specific ports options
+- **icmp** protocol would provide ICMP related ports (i.e., message) options
+
+Again, notice how many TCP port options are available. The highlighted ports are popular options.
+
+Port names or number can be specified. However, port names make it easier to understand the purpose of an ACE. Notice how some common ports names (e.g., SSH and HTTPS) are not listed. For these protocols, port numbers will have to be specified.
+
+R1(config)# access-list 100 permit tcp any any eq ?
+<0-65535>        Port number
+bgp              Border Gateway Protocol (179)
+chargen          Character generator (19)
+cmd              Remote commands (rcmd, 514)
+daytime          Daytime (13)
+discard          Discard (9)
+domain           Domain Name Service (53)
+echo             Echo (7)
+exec             Exec (rsh, 512)
+finger           Finger (79)
+ftp              File Transfer Protocol (21)
+ftp-data         FTP data connections (20)
+gopher           Gopher (70)
+hostname         NIC hostname server (101)
+ident            Ident Protocol (113)
+irc              Internet Relay Chat (194)
+klogin           Kerberos login (543)
+kshell           Kerberos shell (544)
+login            Login (rlogin, 513)
+lpd              Printer service (515)
+msrpc            MS Remote Procedure Call (135)
+nntp             Network News Transport Protocol (119)
+onep-plain       Onep Cleartext (15001)
+onep-tls         Onep TLS (15002)
+pim-auto-rp      PIM Auto-RP (496)
+pop2             Post Office Protocol v2 (109)
+pop3             Post Office Protocol v3 (110)
+smtp             Simple Mail Transport Protocol (25)
+sunrpc           Sun Remote Procedure Call (111)
+syslog           Syslog (514) (111)
+tacacs           TAC Access Control System (49)
+talk             Talk (517)
+telnet           Telnet (23)
+time             Time (37)
+uucp             Unix-to-Unix Copy Program (540)
+whois            Nicname (43)
+www              World Wide Web (HTTP, 80)
+
+#### 4.3.6 Protocols and Port Numbers Configuration Examples
+
+Extended ACLs can filter on different port number and port name options. This example configures an extended ACL 100 to filter HTTP traffic. The first ACE uses the www port name. The second ACE uses the port number 80. Both ACEs achieve exactly the same result.
+
+R1(config)# access-list 100 permit tcp any any eq www
+R1(config)# !or...
+R1(config)# access-list 100 permit tcp any any eq 80
+
+Configuring the port number is required when there is not a specific protocol name listed such as SSH (port number 22) or an HTTPS (port number 443), as shown in the next example.
+
+R1(config)# access-list 100 permit tcp any any eq 22
+R1(config)# access-list 100 permit tcp any any eq 443
+R1(config)#
+
+#### 4.3.7 TCP Established Extended ACL
+
+TCP can also perform basic stateful firewall services using the TCP established keyword. The keyword enables inside traffic to exit the inside private network and permits the returning reply traffic to enter the inside private network, as shown in the figure.
+
+However, TCP traffic generated by an outside host and attempting to communicate with an inside host is denied.
+
+The established keyword can be used to permit only the return HTTP traffic from requested websites, while denying all other traffic.
+
+In the topology, the design for this example shows that ACL 110, which was previously configured, will filter traffic from the inside private network. ACL 120, using the established keyword, will filter traffic coming into the inside private network from the outside public network.
+
+In the example, ACL 120 is configured to only permit returning web traffic to the inside hosts. The new ACL is then applied outbound on the R1 G0/0/0 interface. The **show access-lists** command displays both ACLs. Notice from the match statistics that inside hosts have been accessing the secure web resources from the internet.
+
+R1(config)# access-list 120 permit tcp any 192.168.10.0 0.0.0.255 established
+R1(config)# interface g0/0/0
+R1(config-if)# ip access-group 120 out
+R1(config-if)# end
+R1# show access-lists
+Extended IP access list 110
+    10 permit tcp 192.168.10.0 0.0.0.255 any eq www
+    20 permit tcp 192.168.10.0 0.0.0.255 any eq 443 (657 matches)
+Extended IP access list 120
+    10 permit tcp any 192.168.10.0 0.0.0.255 established (1166 matches)
+R1#
+
+Notice that the permit secure HTTPS counters (i.e., eq 443) in ACL 110 and the return established counters in ACL 120 have increased.
+
+The **established** parameter allows only responses to traffic that originates from the 192.168.10.0/24 network to return to that network. Specifically, a match occurs if the returning TCP segment has the ACK or reset (RST) flag bits set. This indicates that the packet belongs to an existing connection. Without the **established** parameter in the ACL statement, clients could send traffic to a web server, and receive traffic returning from the web server. All traffic would be permitted.
+
+#### 4.3.8 Named Extended IPv4 ACL Syntax
+
+Naming an ACL makes it easier to understand its function. To create a named extended ACL, use the following global configuration command:
+
+Router(config)# ip access-list extended access-list-name
+This command enters the named extended configuration mode. Recall that ACL names are alphanumeric, case sensitive, and must be unique.
+
+In the example, a named extended ACL called NO-FTP-ACCESS is created and the prompt changed to named extended ACL configuration mode. ACE statements are entered in the named extended ACL sub configuration mode.
+
+R1(config)# ip access-list extended NO-FTP-ACCESS
+R1(config-ext-nacl)#
+
+#### 4.3.9 Named Extended IPv4 ACL Example
+
+Named extended ACLs are created in essentially the same way that named standard ACLs are created.
+
+The topology in the figure is used to demonstrate configuring and applying two named extended IPv4 ACLs to an interface:
+
+- **SURFING** - This will permit inside HTTP and HTTPS traffic to exit to the internet.
+- **BROWSING** - This will only permit returning web traffic to the inside hosts while all other traffic exiting the R1 G0/0/0 interface is implicitly denied.
+
+The example shows the configuration for the inbound SURFING ACL and the outbound BROWSING ACL.
+
+The SURFING ACL permits HTTP and HTTPS traffic from inside users to exit the G0/0/1 interface connected to the internet. Web traffic returning from the internet is permitted back into the inside private network by the BROWSING ACL.
+
+The SURFING ACL is applied inbound and the BROWSING ACL applied outbound on the R1 G0/0/0 interface, as shown in the output.
+
+Inside hosts have been accessing the secure web resources from the internet. The show access-lists command is used to verify the ACL statistics. Notice that the permit secure HTTPS counters (i.e., eq 443) in the SURFING ACL and the return established counters in the BROWSING ACL have increased.
+
+R1(config)# ip access-list extended SURFING
+R1(config-ext-nacl)# Remark Permits inside HTTP and HTTPS traffic
+R1(config-ext-nacl)# permit tcp 192.168.10.0 0.0.0.255 any eq 80
+R1(config-ext-nacl)# permit tcp 192.168.10.0 0.0.0.255 any eq 443
+R1(config-ext-nacl)# exit
+R1(config)#
+R1(config)# ip access-list extended BROWSING
+R1(config-ext-nacl)# Remark Only permit returning HTTP and HTTPS traffic
+R1(config-ext-nacl)# permit tcp any 192.168.10.0 0.0.0.255 established
+R1(config-ext-nacl)# exit
+R1(config)# interface g0/0/0
+R1(config-if)# ip access-group SURFING in
+R1(config-if)# ip access-group BROWSING out
+R1(config-if)# end
+R1# show access-lists
+Extended IP access list SURFING
+   10 permit tcp 192.168.10.0 0.0.0.255 any eq www
+   20 permit tcp 192.168.10.0 0.0.0.255 any eq 443 (124 matches)
+Extended IP access list BROWSING
+   10 permit tcp any 192.168.10.0 0.0.0.255 established (369 matches)
+R1#
+
+### 4.4 Named Standard IPv4 ACL Syntax
+
+#### 4.4.1 Two Methods to Modify an ACL
+
+After an ACL is configured, it may need to be modified. ACLs with multiple ACEs can be complex to configure. Sometimes the configured ACE does not yield the expected behaviors. For these reasons, ACLs may initially require a bit of trial and error to achieve the desired filtering result.
+
+This section will discuss two methods to use when modifying an ACL:
+
+- Use a Text Editor
+- Use Sequence Numbers
+
+#### 4.4.2 Text Editor Method
+
+ACLs with multiple ACEs should be created in a text editor. This allows you to plan the required ACEs, create the ACL, and then paste it into the router interface. It also simplifies the tasks to edit and fix an ACL.
+
+For example, assume ACL 1 was entered incorrectly using 19 instead of 192 for the first octet, as shown in the running configuration.
+
+R1# show run | section access-list
+access-list 1 deny 19.168.10.10
+access-list 1 permit 192.168.10.0 0.0.0.255
+R1#
+In the example, the first ACE should have been to deny the host at 192.168.10.10. However, the ACE was incorrectly entered.
+
+To correct the error:
+
+Copy the ACL from the running configuration and paste it into the text editor.
+Make the necessary changes.
+Remove the previously configured ACL on the router. Otherwise, pasting the edited ACL commands will only append (i.e., add) to the existing ACL ACEs on the router.
+Copy and paste the edited ACL back to the router.
+Assume that ACL 1 has now been corrected. Therefore, the incorrect ACL must be deleted, and the corrected ACL 1 statements must be pasted in global configuration mode, as shown in the output.
+
+R1(config)# no access-list 1
+R1(config)#
+R1(config)# access-list 1 deny 19.168.10.10
+R1(config)# access-list 1 permit 192.168.10.0 0.0.0.255
+R1(config)#
+
+#### 4.4.3 Sequence Number Method
+
+An ACL ACE can also be deleted or added using the ACL sequence numbers. Sequence numbers are automatically assigned when an ACE is entered. These numbers are listed in the show access-lists command. The show running-config command does not display sequence numbers.
+
+In the previous example, the incorrect ACE for ACL 1 is using sequence number 10, as shown in the example.
+
+R1# show access-lists
+Standard IP access list 1
+   10 deny 19.168.10.10
+   20 permit 192.168.10.0, wildcard bits 0.0.0.255
+R1#
+Use the ip access-list standard command to edit an ACL. Statements cannot be overwritten using the same sequence number as an existing statement. Therefore, the current statement must be deleted first with the no 10 command. Then the correct ACE can be added using sequence number 10 is configured. Verify the changes using the show access-lists command, as shown in the example.
+
+R1# conf t
+R1(config)# ip access-list standard 1
+R1(config-std-nacl)# no 10
+R1(config-std-nacl)# 10 deny host 192.168.10.10
+R1(config-std-nacl)# end
+R1# show access-lists
+Standard IP access list 1
+   10 deny 192.168.10.10
+   20 permit 192.168.10.0, wildcard bits 0.0.0.255
+R1#
+
+### 4.5 Implement ACLs
+
+#### 4.5.1 ACL Configuration Guidelines
+
+An ACL is made up of one or more access control entries (ACEs) or statements. When configuring and applying an ACL, be aware of the guidelines summarized in this list:
+
+- Create an ACL globally and then apply it.
+- Ensure the last statement is an implicit deny any or deny ip any any.
+- Remember that statement order is important because ACLs are processed top-down.
+- As soon as a statement is matched the ACL is exited.
+- Always filter from the most specific to the most generic. For example, deny a specific host and then permit all other hosts.
+- Remember that only one ACL is allowed per interface, per protocol, per direction.
+- Remember that new statements for an existing ACL are added to the bottom of the ACL by default.
+- Remember that router-generated packets are not filtered by outbound ACLs.
+- Place standard ACLs as close to the destination as possible.
+- Place extended ACLs as close to the source as possible.
+
+#### 4.5.2 Apply an ACL
+
+After creating an ACL, the administrator can apply it in a number of different ways. The following shows the command syntax to apply an ACL to an interface or to the vty lines.
+
+Router(config-if)# ip access-group {acl-# | name} {in | out}
+Router(config-line)# ip access-class {acl-# | name} {in | out}
+
+Enabling the log parameter on a Cisco router or switch seriously affects the performance of that device. The log parameter should only be used when the network is under attack, and an administrator is trying to determine who the attacker is.
+
+Applying ACLs to interfaces and lines is just one of their many possible uses. ACLs are also an integral part of other security configurations, such as network address translation (NAT), zone-based firewalls, and virtual private networks.
+
+To remove an ACL from an interface, first enter the no ip access-group interface configuration command. However, the ACL will still be configured on the router. To remove the ACL from the router, use the no access-list global configuration command.
+
+#### 4.5.3 Where to Place ACLs
+
+Every ACL should be placed where it is the most efficient.
+
+The figure illustrates where standard and extended ACLs should be located in an enterprise network. Assume the objective is to prevent traffic that originates in the 192.168.10.0/24 network from reaching the 192.168.30.0/24 network.
+
+Extended ACLs should be located as close as possible to the source of the traffic to be filtered. This way, undesirable traffic is denied close to the source network without crossing the network infrastructure.
+
+Standard ACLs should be located as close to the destination as possible. If a standard ACL was placed at the source of the traffic, the "permit" or "deny" will occur based on the given source address no matter where the traffic is destined.
+
+Placement of the ACL and therefore, the type of ACL used, may also depend on a variety of factors as listed in the table.
+
+| **Factors Influencing ACL Placement** | **Explanation** |
+|---|---|
+| **The extent of organizational control** | Placement of the ACL can depend on whether or not the organization has control of both the source and destination networks. |
+| **Bandwidth of the networks involved** | It may be desirable to filter unwanted traffic at the source to prevent transmission of bandwidth-consuming traffic. |
+| **Ease of configuration** | • It may be easier to implement an ACL at the destination, but traffic will use bandwidth unnecessarily.<br>• An extended ACL could be used on each router where the traffic originated. This would save bandwidth by filtering the traffic at the source, but it would require creating extended ACLs on multiple routers. |
+
+#### 4.5.4 Standard ACL Placement Example
+
+Following the guidelines for ACL placement, standard ACLs should be located as close to the destination as possible.
+
+Following the basic placement guidelines, the administrator would place a standard ACL on router R3. There are two possible interfaces on R3 to apply the standard ACL:
+
+- **R3 S0/1/1 interface (inbound)** - The standard ACL can be applied inbound on the R3 S0/1/1 interface to deny traffic from .10 network. However, it would also filter .10 traffic to the 192.168.31.0/24 (.31 in this example) network. Therefore, the standard ACL should not be applied to this interface.
+- **R3 G0/0/0 interface (outbound)** - The standard ACL can be applied outbound on the R3 G0/0/0 interface. This will not affect other networks that are reachable by R3. Packets from .10 network will still be able to reach the .31 network. This is the best interface to place the standard ACL to meet the traffic requirements.
+
+#### 4.5.7 Extended ACL Placement 
+
+Extended ACLs should be located as close to the source as possible. This prevents unwanted traffic from being sent across multiple networks only to be denied when it reaches its destination.
+
+However, the organization can only place ACLs on devices that they control. Therefore, the extended ACL placement must be determined in the context of where organizational control extends.
+
+There are several ways to accomplish these goals. An extended ACL on R3 would accomplish the task, but the administrator does not control R3. In addition, this solution allows unwanted traffic to cross the entire network, only to be blocked at the destination. This affects overall network efficiency.
+
+The solution is to place an extended ACL on R1 that specifies both source and destination addresses.
+
+There are two possible interfaces on R1 to apply the extended ACL:
+
+- **R1 S0/1/0 interface (outbound)** - The extended ACL can be applied outbound on the S0/1/0 interface. However, this solution will process all packets leaving R1 including packets from 192.168.10.0/24.
+
+- **R1 G0/0/1 interface (inbound)** - The extended ACL can be applied inbound on the G0/0/1 so that only packets from the 192.168.11.0/24 network are subject to ACL processing on R1. Because the filter is to be limited to only those packets leaving the 192.168.11.0/24 network, applying the extended ACL to G0/0/1 is the best solution.
+
+### 4.6 Mitigate Attacks with ACLs
+
+#### 4.6.1 Mitigate Spoofing Attacks
+
+ACLs can be used to mitigate many network threats, such as IP address spoofing and denial of service (DoS) attacks. Most DoS attacks use some type of spoofing. IP address spoofing overrides the normal packet creation process by inserting a custom IP header with a different source IP address. Attackers can hide their identity by spoofing the source IP address.
+
+There are many well-known classes of IP addresses that should never be seen as source IP addresses for traffic entering an organization’s network. For example, in the figure the S0/0/0 interface is attached to the internet and should never accept inbound packets from the following addresses:
+
+All zeros addresses
+Broadcast addresses
+Local host addresses (127.0.0.0/8)
+Automatic Private IP Addressing (APIPA) addresses (169.254.0.0/16)
+Reserved private addresses (RFC 1918)
+IP multicast address range (224.0.0.0/4)
+The 192.168.1.0/24 network is attached to the R1 G0/0 interface. This interface should only allow inbound packets with a source address from that network. The ACL for G0/0 shown in the figure will only permit inbound packets from the 192.168.1.0/24 network. All others will be discarded.
+
+The figure shows a computer connected to R 1 via G0/0 with the address of 192.168.1.0 / 24. R1 is connected to the internet via S0/0/0
+R1
+192.168.1.0/24
+G0/0
+S0/0/0
+Internet
+Inbound on S0/0/0:
+
+R1(config)# access-list 150 deny ip host 0.0.0.0 any
+R1(config)# access-list 150 deny ip 10.0.0.0 0.255.255.255 any
+R1(config)# access-list 150 deny ip 127.0.0.0 0.255.255.255 any
+R1(config)# access-list 150 deny ip 172.16.0.0 0.15.255.255 any
+R1(config)# access-list 150 deny ip 192.168.0.0 0.0.255.255 any
+R1(config)# access-list 150 deny ip 224.0.0.0 15.255.255.255 any
+R1(config)# access-list 150 deny ip host 255.255.255.255 any
+Inbound on G0/0:
+
+R1(config)# access-list 105 permit ip 192.168.1.0 0.0.0.255 any
+
+#### 4.6.2 Permit Necessary Traffic through a Firewall
+
+An effective strategy for mitigating attacks is to explicitly permit only certain types of traffic through a firewall. For example, Domain Name System (DNS), Simple Mail Transfer Protocol (SMTP), and File Transfer Protocol (FTP) are services that often must be allowed through a firewall. It is also common to configure a firewall so that it permits administrators remote access through the firewall. Secure Shell (SSH), syslog, and Simple Network Management Protocol (SNMP) are examples of services that a router may need to include. While many of these services are useful, they should be controlled and monitored. Exploitation of these services leads to security vulnerabilities.
+
+The figure shows an example topology with ACL configurations to permit specific services on the Serial 0/0/0 interface.
+
+The figure shows a computer connected to the internet with an address of 200.5.5.5 / 24. the internet is connected to R 1 via s0/0/0 with the address 10.0.1.1. R 1 connects to P C1 via G0/1. R1 connects to a server via G0.0. The server network is 192.168.20.2 / 24. below the server is the text d n s, s m t p, and f t p.
+R1
+PC1
+200.5.5.5/24
+Serial 0/0/0
+10.0.1.1
+G0/1
+G0/0
+Internet192.168.20.2/24
+DNS, SMTP, FTP
+Inbound on S0/0/0:
+
+R1(config)# access-list 180 permit udp any host 192.168.20.2 eq domain
+R1(config)# access-list 180 permit tcp any host 192.168.20.2 eq smtp
+R1(config)# access-list 180 permit tcp any host 192.168.20.2 eq ftp
+R1(config)# access-list 180 permit tcp host 200.5.5.5 host 10.0.1.1 eq 22
+R1(config)# access-list 180 permit udp host 200.5.5.5 host 10.0.1.1 eq syslog
+R1(config)# access-list 180 permit udp host 200.5.5.5 host 10.0.1.1 eq snmptrap
+
+#### 4.6.3 Mitigate ICMP Attacks
+
+Hackers can use Internet Control Message Protocol (ICMP) echo packets (pings) to discover subnets and hosts on a protected network and to generate DoS flood attacks. Hackers can use ICMP redirect messages to alter host routing tables. Both ICMP echo and redirect messages should be blocked inbound by the router.
+
+Several ICMP messages are recommended for proper network operation and should be allowed into the internal network:
+
+Echo reply - Allows users to ping external hosts.
+Source quench - Requests that the sender decrease the traffic rate of messages.
+Unreachable - Generated for packets that are administratively denied by an ACL.
+Several ICMP messages are required for proper network operation and should be allowed to exit the network:
+
+Echo - Allows users to ping external hosts.
+Parameter problem - Informs the host of packet header problems.
+Packet too big - Enables packet maximum transmission unit (MTU) discovery.
+Source quench - Throttles down traffic when necessary.
+As a rule, block all other ICMP message types outbound.
+
+ACLs are used to block IP address spoofing, selectively permit specific services through a firewall, and to allow only required ICMP messages. The figure shows a sample topology and possible ACL configurations to permit specific ICMP services on the G0/0 and S0/0/0 interfaces.
+
+The figure shows a computer connected to the internet with an address of 209.165.201.3 / 24. the internet is connected to R 1 via s0/0/0. R1 connects to a server via G0.0. The server network is 192.168.1.0 / 24.
+R1
+209.165.201.3/24
+S0/0/0
+G0/0
+192.168.1.0/24
+Internet
+Inbound on S0/0/0:
+
+R1(config)# access-list 112 permit icmp any any echo-reply
+R1(config)# access-list 112 permit icmp any any source-quench
+R1(config)# access-list 112 permit icmp any any unreachable
+R1(config)# access-list 112 deny icmp any any
+R1(config)# access-list 112 permit ip any any
+Inbound on S0/0/0:
+
+R1(config)# access-list 114 permit icmp 192.168.1.0 0.0.0.255 any echo
+R1(config)# access-list 114 permit icmp 192.168.1.0 0.0.0.255 any parameter-problem
+R1(config)# access-list 114 permit icmp 192.168.1.0 0.0.0.255 any packet-too-big
+R1(config)# access-list 114 permit icmp 192.168.1.0 0.0.0.255 any source-quench
+R1(config)# access-list 114 deny icmp any any
+R1(config)# permit ip any any
+
+#### 4.6.4 Mitigate SNMP Attacks
+
+Management protocols, such as SNMP, are useful for remote monitoring and management of networked devices. However, they can still be exploited. If SNMP is necessary, exploitation of SNMP vulnerabilities can be mitigated by applying interface ACLs to filter SNMP packets from non-authorized systems. An exploit may still be possible if the SNMP packet is sourced from an address that has been spoofed and is permitted by the ACL.
+
+These security measures are helpful, but the most effective means of exploitation prevention is to disable the SNMP server on IOS devices for which it is not required. As shown in the figure, use the command no snmp-server to disable SNMP services on Cisco IOS devices.
+
+The figure shows a computer with a hacker connected to the internet. The internet is connected to a router. the computer screen reads attempted s n m p exploit. There is a bubble above the router that reads s n m p disabled. s n m p request denied.
+Attempted SNMP exploitSNMP disabled,
+SNMP request denied.Internet
+Router(config)# no snmp-server
 
 
 
